@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Towards Production: Getting in Shape</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+
+    
+    
+      <link href="/automerge-rs/dist/css/app.49ec1ced88badbf69e4461b6406cad5a.css" rel="stylesheet">
+    
+
+    <link rel="stylesheet" href="/automerge-rs/house.css">
+
+    
+      
+
+    
+
+    <meta property="og:title" content="Towards Production: Getting in Shape" />
+<meta property="og:description" content="Behind Automerge-RS In 2017, Ink &amp; Switch decided to collaborate with Martin Kleppmann to see if we could build an easy to use CRDT in javascript based on Martin&rsquo;s research. By and large, I think we were successful, which can be seen in Automerge v0.14.1.
+While we hit the goals of being a correct CRDT that was easy to use, there were a number of shortcomings. It was too slow, and as every change in the history was stored completely in an uncompressed format, the footprint of a document was too large." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://inkandswitch.github.io/automerge-rs/post/towards-production/" />
+<meta property="article:published_time" content="2020-12-18T09:55:33-08:00" />
+<meta property="article:modified_time" content="2020-12-18T09:55:33-08:00" /><meta itemprop="name" content="Towards Production: Getting in Shape">
+<meta itemprop="description" content="Behind Automerge-RS In 2017, Ink &amp; Switch decided to collaborate with Martin Kleppmann to see if we could build an easy to use CRDT in javascript based on Martin&rsquo;s research. By and large, I think we were successful, which can be seen in Automerge v0.14.1.
+While we hit the goals of being a correct CRDT that was easy to use, there were a number of shortcomings. It was too slow, and as every change in the history was stored completely in an uncompressed format, the footprint of a document was too large.">
+<meta itemprop="datePublished" content="2020-12-18T09:55:33-08:00" />
+<meta itemprop="dateModified" content="2020-12-18T09:55:33-08:00" />
+<meta itemprop="wordCount" content="1175">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Towards Production: Getting in Shape"/>
+<meta name="twitter:description" content="Behind Automerge-RS In 2017, Ink &amp; Switch decided to collaborate with Martin Kleppmann to see if we could build an easy to use CRDT in javascript based on Martin&rsquo;s research. By and large, I think we were successful, which can be seen in Automerge v0.14.1.
+While we hit the goals of being a correct CRDT that was easy to use, there were a number of shortcomings. It was too slow, and as every change in the history was stored completely in an uncompressed format, the footprint of a document was too large."/>
+
+  </head>
+
+  <body class="">
+    
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked">
+          
+        POSTS
+      </aside>
+      <h1 class="f1 mt3 mb1">Towards Production: Getting in Shape</h1>
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2020-12-18T09:55:33-08:00">December 18, 2020</time>
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h3 id="behind-automerge-rs">Behind Automerge-RS</h3>
+<p>In 2017, Ink &amp; Switch decided to collaborate with Martin Kleppmann to see if we could build an easy to use CRDT in javascript based on Martin&rsquo;s research.  By and large, I think we were successful, which can be seen in <a href="https://github.com/automerge/automerge">Automerge v0.14.1</a>.</p>
+<p>While we hit the goals of being a correct CRDT that was easy to use, there were a number of shortcomings.  It was too slow, and as every change in the history was stored completely in an uncompressed format, the footprint of a document was too large.</p>
+<p>Martin began work on the <a href="https://github.com/automerge/automerge/tree/performance">performance branch</a> to address these problems.  The new, but unreleased, version of Automerge is much more robust, and solves many of the performance problems of the original.  But most importantly creates an extremely efficiently compressed binary format that makes radical improvements on the memory and storage footprint of these documents.  This performance branch is very solid for day-to-day use but not recommended for anything in production as tweaks to the binary format and api calls are still happening regularly.</p>
+<p>Early this year, I decided that Automerge was ready to start working toward a cross platform, high performance version of Automerge.  To accomplish this, @AlexGood and I teamed up to write <a href="https://github.com/automerge/automerge-rs">AutomergeRS</a>, an API compatible implementation of Automerge&rsquo;s Backend half, implemented in Rust, with WASM bindings.  The package also contains an early implementation of a rust-native frontend, and C bindings for the backend, to enable Frontend implementations in other languages such as Swift.  While there is not an official npm package for AutomergeRS yet, I have <a href="https://github.com/orionz/automerge/tree/wasm-node">rolled one for myself</a>.  It only works in Node, as the wasm loading is async in the browser and would require the library to be wrapped in a promise.</p>
+<p>We modified a <a href="https://github.com/orionz/automerge-perf">pre existing performance test</a> made by Martin to ensure we met or exceeded the performance of the new implementation.</p>
+<pre><code>$ node automerge-text.js
+mode=js   step=2000 time=76358ms
+mode=wasm step=2000 time=8491ms
+mode=js   step=100  time=43054ms
+mode=wasm step=100  time=17044ms
+</code></pre><h3 id="next-steps">Next Steps</h3>
+<p>There are many steps in getting Automerge ready for the big time. but a very important one that I am personally focused on is making sure Automerge is the performance king of CRDT&rsquo;s.  That crown is currently held by <a href="git@github.com:yjs/yjs.git">yjs</a>, an excellent CRDT that focuses specifically on collaborative text editing.  Now, there&rsquo;s some apples to oranges in comparing them, as these two CRDT&rsquo;s have very different goals.  Yjs is javascript only, Automerge intends to be available on all platforms.  Yjs is for managing lists (or things you can build out of lists) with a very bespoke specific APIs.  Automerge allows you to manage your document as a plain old javascript object with maps and lists nested in any which way you choose.  Yjs does not preserve the document history in a meaningful way, whereas Automerge preserves the entire history and allows for easy point in time recovery and branching.  Automerge allows you to move the CRDT portion of the document out of the render thread with its frontend/backend split, while Yjs focuses on being fast enough that you shouldn&rsquo;t need to.</p>
+<p>Nevertheless I wanted to see how far we needed to go to catch up with Yjs and what I could learn from their approach.  We adapted an <a href="https://github.com/orionz/crdt-benchmarks">existing benchmark</a> used to compare Yjs to other CRDTs to see what we could see.  This test suite is very comprehensive and has been invaluable to work with.  But for this post I want to cherry pick a handful of tests that I think distill the current performance story</p>
+<pre><code>| N = 1000 |
+|                                                            |        yjs |    automerge1 |   automergeWASM|
+|Version                                                     |     13.4.1 |    1.0.0-pre1 |      1.0.0-pre1|
+|[B1.2] Insert string of length N (time)                     |       4 ms |        441 ms |           35 ms|
+|[B1.4] Insert N characters at random positions (time)       |      99 ms |        947 ms |          224 ms|
+|[B3.1] 20√N clients concurrently set number in Map (time)   |      95 ms |        516 ms |            8 ms|
+
+</code></pre><p>First, test [B3.1] Automerge does very well with concurrency and maps.  This makes sense since Automerge supports maps natively whereas Yjs implements them on top of lists.  Second, Yjs dominates in sequential character insertions as seen in test [B1.2].  Yjs has a number of very clever optimizations around this specific scenario because text entry (its target use case) is mostly sequential and thus deserves specific optimizations.  The first is compressing spans of elementId&rsquo;s with common actors and sequential counters.  In fact test [B1.2] becomes a single op where Automerge creates an op per character.  The second is keeping a set of &ldquo;hot&rdquo; list positions cached to speed up <code>indexOf(elementId)</code> operations which are predictable in mostly sequental text entry.</p>
+<p>Both of these are very clever optimizations that we could take advantage of but, to me, the standout test is the one that shows Automerge falling behind on random inserts.  In this scenario, neither of these optimizations play a part and as (under the hood) both are using the same Lamport Compare to do the CRDT work, we should be neck and neck.  As it stands we need to reduce our execution time by about 50% to catch up.</p>
+<p>After some aggressive profiling I was able to determine a large chunk of time was spent in memory allocations related to change request versioning.  To explain, the frontend does not generate a fully formed change.  It instead creates a &lsquo;change request&rsquo; which is like a change but missing four things.  It lacks the <code>pred</code>, <code>startOp</code>, <code>deps</code> fields and list elementId&rsquo;s.  It&rsquo;s the backend&rsquo;s job to fill these out before creating the cannoical change object.  The problem is that the backend needs to hold on to previous versions so that when a request says &ldquo;insert after list index 7&rdquo; it may have to refer to an old version of the list to know what index 7 was at that time.  This requires the backend to keep multiple versions of the document state in memory.  Currently we use immutable data structures so the cost to do so is low but not zero.  And in the usual case of the frontend and backend being caught up this versioning does nothing while extracting a heavy tax.</p>
+<p>I tried disabling the versioning code (which would produce wrong results when the front-end back-end get out of sync) to see what the performance cost was and saw speedups between 15% and 30% from that alone.  This is no small matter when all I need to get is a total speedup of 50%.  The solution is to have the frontend produce fully formed changes, complete with <code>pred</code> and elementId&rsquo;s.</p>
+<p>That change has been the subject of the <a href="https://github.com/automerge/automerge/pull/291">current pull request</a> I have open with Automerge that I hope to have merged soon.  This would be the first time my rust work would result in a significant change to the Automerge API as up until now I&rsquo;ve been trying to work entirely within the constraints laid out by Martin&rsquo;s design.  With any luck this will be accepted into Automerge/performance and I&rsquo;ll be back with better benchmarks next week.</p>
+<p>Orion Henry</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    
+
+  <script src="/automerge-rs/dist/js/app.50f197db0901b16e3144.js"></script>
+
+
+
+  </body>
+</html>

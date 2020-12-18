@@ -1,0 +1,1198 @@
+pre, .pre  {
+  overflow-x: auto;
+  overflow-y: hidden;
+  overflow:   scroll;
+}
+
+
+pre  code {
+  display: block;
+  padding: 1.5em 1.5em;
+  white-space: pre;
+  font-size: .875rem;
+  line-height: 2;
+
+}
+
+
+pre {
+  background-color: #222;
+  color: #ddd;
+  white-space: pre;
+
+  -webkit-hyphens: none;
+
+      -ms-hyphens: none;
+
+          hyphens: none;
+  position: relative;
+}
+
+
+/* pagination.html: https://github.com/spf13/hugo/blob/master/tpl/tplimpl/template_embedded.go#L117 */
+
+
+.pagination {
+  margin: 3rem 0;
+}
+
+
+.pagination li {
+  display: inline-block;
+  margin-right: .375rem;
+  font-size: .875rem;
+  margin-bottom: 2.5em;
+}
+
+
+.pagination li a {
+  padding: .5rem .625rem;
+  background-color: white;
+  color: #333;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  text-decoration: none;
+}
+
+
+.pagination li.disabled {
+  display: none;
+}
+
+
+.pagination li.active a:link,
+.pagination li.active a:active,
+.pagination li.active a:visited {
+  background-color: #ddd;
+}
+
+
+/* #TableOfContents ul li {
+  margin-bottom: 1em;
+} */
+
+
+.facebook, .twitter, .instagram, .youtube, .github, .gitlab, .keybase, .linkedin, .medium, .mastodon, .slack, .stackoverflow, .rss {
+  fill: #BABABA;
+}
+
+
+.new-window {
+  opacity: 0;
+  display: inline-block;
+  vertical-align: top;
+}
+
+
+.link-transition:hover .new-window{
+  opacity: 1;
+}
+
+
+.facebook:hover {
+  fill: #3b5998;
+}
+
+
+.twitter:hover {
+  fill: #1da1f2;
+}
+
+
+.instagram:hover {
+  fill: #e1306c;
+}
+
+
+.youtube:hover {
+  fill: #cd201f;
+}
+
+
+.github:hover {
+  fill: #6cc644;
+}
+
+
+.gitlab:hover {
+  fill: #FC6D26;
+}
+
+
+.keybase:hover {
+  fill: #3d76ff;
+}
+
+
+.linkedin:hover {
+  fill: #0077b5
+}
+
+
+.medium:hover {
+  fill: #0077b5
+}
+
+
+.mastodon:hover {
+  fill: #3088d4;
+}
+
+
+.slack:hover {
+  fill: #E01E5A;
+}
+
+
+.stackoverflow:hover {
+  fill: #f48024;
+}
+
+
+.rss:hover{
+  fill: #ff6f1a;
+}
+
+
+/* Put your custom styles here and run `npm start` from the "src" directory on */
+
+
+/* #TableOfContents ul li {
+  margin-bottom: 1em;
+} */
+
+
+.lh-copy blockquote {
+  display: block;
+  font-size: .875em;
+  margin-left: 2rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  border-left: 4px solid #ccc;
+  padding-left: 1rem;
+
+}
+
+
+.nested-links a{
+  word-wrap: break-word;
+}
+
+
+/* To get these styles to recompile, run `npm start` from the "src" directory on */
+
+
+/* Generic overrides for I&S style (port back into main I&S CSS?) */
+
+
+img {
+  max-width: 100%;
+}
+
+
+.highlight pre[class*="language-"] {
+    /* Put code snippets closer to the text above than below, clearer text flow */
+    margin-bottom: 1.5em;
+    margin-top: -0.5em;
+}
+
+
+/* I think this is needed to deal with Prism highlighting issues */
+
+
+pre code {
+  padding: 0;
+}
+
+
+figure {
+  scrollbar-width: none;
+}
+
+
+/* lens demo specific CSS */
+
+
+.lens-demo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  min-height: 300px;
+
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+}
+
+
+.lens-demo pre[class*="language-"] {
+  scrollbar-width: none;
+  margin: 0;
+  padding: 0;
+  background: white;
+}
+
+
+.lens-demo pre code {
+  font-size: 12px;
+  line-height: 1.3em;
+  padding: 0.3em 1em;
+}
+
+
+.lens-demo pre code.language-json {
+  background: #fff;
+}
+
+
+.lens-demo pre code.language-yaml {
+  background: #fff8eb;
+}
+
+
+.lens-demo .lens-op.disabled pre code.language-yaml,
+.lens-demo .lens-op.disabled pre code.language-yaml span.token {
+  color: #aaa;
+}
+
+
+.lens-op:hover,
+.lens-op:hover pre code.language-yaml {
+  background: #eaffe3;
+}
+
+
+.lens-demo .document-container {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 3 300px;
+          flex: 0 3 300px;
+  min-height: 100px;
+  max-width: 250px;
+}
+
+
+.lens-demo .document {
+  background: #ffffff;
+  border: 1px solid hsl(0, 0%, 87%);
+  border-radius: 5px;
+}
+
+
+.lens-demo .document-header {
+  background: #f9f9f9;
+  border-bottom: 1px solid #eeeeee;
+  padding: 3px;
+  color: #5c7380;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+
+.lens-demo .document-header.json-schema {
+  background: #e6ffeb;
+}
+
+
+.lens-demo .document-header.json-patch {
+  background: #ffecec;
+}
+
+
+.lens-demo .lens-op-description {
+  font-size: 12px;
+  color: #999;
+  padding: 5px 10px;
+  display: none;
+}
+
+
+.lens-demo .connector {
+  width: 15px;
+  margin: 0 5px;
+  color: rgb(173, 173, 173);
+  font-size: 18px;
+}
+
+
+.lens-demo .connector::before {
+  content: "\2192";
+}
+
+
+.lens-demo .lens {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 2 400px;
+          flex: 0 2 400px;
+  min-height: 150px;
+  max-width: 300px;
+
+  background: #fff8eb;
+  border: 1px solid #eeeeee;
+  border-radius: 5px;
+  margin-bottom: 20px; /* make sure caption below lens doesn't overlap the figure */
+}
+
+
+.lens-demo .lens-header {
+  background: #fff1d4;
+  border-bottom: 1px solid #f3f3f3;
+  padding: 3px;
+  color: #5c7380;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+
+.lens-demo .lens-comment {
+  font-size: 11px;
+  color: #999;
+  padding: 5px 0 0 12px;
+  font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+  border-bottom: solid thin #f2eada;
+}
+
+
+@media screen and (max-width: 640px) {
+  .lens-demo {
+    margin-bottom: 20px;
+  }
+
+  .lens-demo-container {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .lens-demo .document-container {
+    max-width: 100%;
+    margin-bottom: 0;
+  }
+
+  .lens-demo .lens {
+    max-width: 100%;
+    margin-bottom: 0;
+  }
+
+  .lens-demo {
+    display: block;
+  }
+
+  .lens-demo .connector::before {
+    content: "\2193";
+  }
+  .lens-demo .connector {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+
+/* Background */
+
+
+.chroma { color: #272822; background-color: #fafafa }
+
+
+/* Other */
+
+
+.chroma .x {  }
+
+
+/* Error */
+
+
+.chroma .err { color: #960050; background-color: #1e0010 }
+
+
+/* LineTableTD */
+
+
+.chroma .lntd { vertical-align: top; padding: 0; margin: 0; border: 0; }
+
+
+/* LineTable */
+
+
+.chroma .lntable { border-spacing: 0; padding: 0; margin: 0; border: 0; width: auto; overflow: auto; display: block; }
+
+
+/* LineHighlight */
+
+
+.chroma .hl { display: block; width: 100%;background-color: #ffffcc }
+
+
+/* LineNumbersTable */
+
+
+.chroma .lnt { margin-right: 0.4em; padding: 0 0.4em 0 0.4em;color: #7f7f7f }
+
+
+/* LineNumbers */
+
+
+.chroma .ln { margin-right: 0.4em; padding: 0 0.4em 0 0.4em;color: #7f7f7f }
+
+
+/* Keyword */
+
+
+.chroma .k { color: #00a8c8 }
+
+
+/* KeywordConstant */
+
+
+.chroma .kc { color: #00a8c8 }
+
+
+/* KeywordDeclaration */
+
+
+.chroma .kd { color: #00a8c8 }
+
+
+/* KeywordNamespace */
+
+
+.chroma .kn { color: #f92672 }
+
+
+/* KeywordPseudo */
+
+
+.chroma .kp { color: #00a8c8 }
+
+
+/* KeywordReserved */
+
+
+.chroma .kr { color: #00a8c8 }
+
+
+/* KeywordType */
+
+
+.chroma .kt { color: #00a8c8 }
+
+
+/* Name */
+
+
+.chroma .n { color: #111111 }
+
+
+/* NameAttribute */
+
+
+.chroma .na { color: #75af00 }
+
+
+/* NameBuiltin */
+
+
+.chroma .nb { color: #111111 }
+
+
+/* NameBuiltinPseudo */
+
+
+.chroma .bp { color: #111111 }
+
+
+/* NameClass */
+
+
+.chroma .nc { color: #75af00 }
+
+
+/* NameConstant */
+
+
+.chroma .no { color: #00a8c8 }
+
+
+/* NameDecorator */
+
+
+.chroma .nd { color: #75af00 }
+
+
+/* NameEntity */
+
+
+.chroma .ni { color: #111111 }
+
+
+/* NameException */
+
+
+.chroma .ne { color: #75af00 }
+
+
+/* NameFunction */
+
+
+.chroma .nf { color: #75af00 }
+
+
+/* NameFunctionMagic */
+
+
+.chroma .fm { color: #111111 }
+
+
+/* NameLabel */
+
+
+.chroma .nl { color: #111111 }
+
+
+/* NameNamespace */
+
+
+.chroma .nn { color: #111111 }
+
+
+/* NameOther */
+
+
+.chroma .nx { color: #75af00 }
+
+
+/* NameProperty */
+
+
+.chroma .py { color: #111111 }
+
+
+/* NameTag */
+
+
+.chroma .nt { color: #f92672 }
+
+
+/* NameVariable */
+
+
+.chroma .nv { color: #111111 }
+
+
+/* NameVariableClass */
+
+
+.chroma .vc { color: #111111 }
+
+
+/* NameVariableGlobal */
+
+
+.chroma .vg { color: #111111 }
+
+
+/* NameVariableInstance */
+
+
+.chroma .vi { color: #111111 }
+
+
+/* NameVariableMagic */
+
+
+.chroma .vm { color: #111111 }
+
+
+/* Literal */
+
+
+.chroma .l { color: #ae81ff }
+
+
+/* LiteralDate */
+
+
+.chroma .ld { color: #d88200 }
+
+
+/* LiteralString */
+
+
+.chroma .s { color: #d88200 }
+
+
+/* LiteralStringAffix */
+
+
+.chroma .sa { color: #d88200 }
+
+
+/* LiteralStringBacktick */
+
+
+.chroma .sb { color: #d88200 }
+
+
+/* LiteralStringChar */
+
+
+.chroma .sc { color: #d88200 }
+
+
+/* LiteralStringDelimiter */
+
+
+.chroma .dl { color: #d88200 }
+
+
+/* LiteralStringDoc */
+
+
+.chroma .sd { color: #d88200 }
+
+
+/* LiteralStringDouble */
+
+
+.chroma .s2 { color: #d88200 }
+
+
+/* LiteralStringEscape */
+
+
+.chroma .se { color: #8045ff }
+
+
+/* LiteralStringHeredoc */
+
+
+.chroma .sh { color: #d88200 }
+
+
+/* LiteralStringInterpol */
+
+
+.chroma .si { color: #d88200 }
+
+
+/* LiteralStringOther */
+
+
+.chroma .sx { color: #d88200 }
+
+
+/* LiteralStringRegex */
+
+
+.chroma .sr { color: #d88200 }
+
+
+/* LiteralStringSingle */
+
+
+.chroma .s1 { color: #d88200 }
+
+
+/* LiteralStringSymbol */
+
+
+.chroma .ss { color: #d88200 }
+
+
+/* LiteralNumber */
+
+
+.chroma .m { color: #ae81ff }
+
+
+/* LiteralNumberBin */
+
+
+.chroma .mb { color: #ae81ff }
+
+
+/* LiteralNumberFloat */
+
+
+.chroma .mf { color: #ae81ff }
+
+
+/* LiteralNumberHex */
+
+
+.chroma .mh { color: #ae81ff }
+
+
+/* LiteralNumberInteger */
+
+
+.chroma .mi { color: #ae81ff }
+
+
+/* LiteralNumberIntegerLong */
+
+
+.chroma .il { color: #ae81ff }
+
+
+/* LiteralNumberOct */
+
+
+.chroma .mo { color: #ae81ff }
+
+
+/* Operator */
+
+
+.chroma .o { color: #f92672 }
+
+
+/* OperatorWord */
+
+
+.chroma .ow { color: #f92672 }
+
+
+/* Punctuation */
+
+
+.chroma .p { color: #111111 }
+
+
+/* Comment */
+
+
+.chroma .c { color: #75715e }
+
+
+/* CommentHashbang */
+
+
+.chroma .ch { color: #75715e }
+
+
+/* CommentMultiline */
+
+
+.chroma .cm { color: #75715e }
+
+
+/* CommentSingle */
+
+
+.chroma .c1 { color: #75715e }
+
+
+/* CommentSpecial */
+
+
+.chroma .cs { color: #75715e }
+
+
+/* CommentPreproc */
+
+
+.chroma .cp { color: #75715e }
+
+
+/* CommentPreprocFile */
+
+
+.chroma .cpf { color: #75715e }
+
+
+/* Generic */
+
+
+.chroma .g {  }
+
+
+/* GenericDeleted */
+
+
+.chroma .gd {  }
+
+
+/* GenericEmph */
+
+
+.chroma .ge { font-style: italic }
+
+
+/* GenericError */
+
+
+.chroma .gr {  }
+
+
+/* GenericHeading */
+
+
+.chroma .gh {  }
+
+
+/* GenericInserted */
+
+
+.chroma .gi {  }
+
+
+/* GenericOutput */
+
+
+.chroma .go {  }
+
+
+/* GenericPrompt */
+
+
+.chroma .gp {  }
+
+
+/* GenericStrong */
+
+
+.chroma .gs { font-weight: bold }
+
+
+/* GenericSubheading */
+
+
+.chroma .gu {  }
+
+
+/* GenericTraceback */
+
+
+.chroma .gt {  }
+
+
+/* GenericUnderline */
+
+
+.chroma .gl {  }
+
+
+/* TextWhitespace */
+
+
+.chroma .w {  }
+
+
+/* PrismJS 1.21.0
+https://prismjs.com/download.html#themes=prism&languages=markup+css+clike+javascript+json+json5+yaml&plugins=line-highlight+show-language+toolbar */
+
+
+/**
+ * prism.js default theme for JavaScript, CSS and HTML
+ * Based on dabblet (http://dabblet.com)
+ * @author Lea Verou
+ */
+
+
+code[class*="language-"],
+pre[class*="language-"] {
+	color: black;
+	background: none;
+	text-shadow: 0 1px white;
+	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	font-size: 1em;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	word-wrap: normal;
+	line-height: 1.5;
+
+	-moz-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+}
+
+
+pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,
+code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+
+pre[class*="language-"]::selection, pre[class*="language-"] ::selection,
+code[class*="language-"]::selection, code[class*="language-"] ::selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+
+@media print {
+	code[class*="language-"],
+	pre[class*="language-"] {
+		text-shadow: none;
+	}
+}
+
+
+/* Code blocks */
+
+
+pre[class*="language-"] {
+	padding: 1em;
+	margin: .5em 0;
+	overflow: auto;
+}
+
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+	background: #f5f2f0;
+}
+
+
+/* Inline code */
+
+
+:not(pre) > code[class*="language-"] {
+	padding: .1em;
+	border-radius: .3em;
+	white-space: normal;
+}
+
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: slategray;
+}
+
+
+.token.punctuation {
+	color: #999;
+}
+
+
+.token.namespace {
+	opacity: .7;
+}
+
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+	color: #905;
+}
+
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+	color: #690;
+}
+
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+	color: #9a6e3a;
+	/* This background color was intended by the author of this theme. */
+	background: hsla(0, 0%, 100%, .5);
+}
+
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+	color: #07a;
+}
+
+
+.token.function,
+.token.class-name {
+	color: #DD4A68;
+}
+
+
+.token.regex,
+.token.important,
+.token.variable {
+	color: #e90;
+}
+
+
+.token.important,
+.token.bold {
+	font-weight: bold;
+}
+
+
+.token.italic {
+	font-style: italic;
+}
+
+
+.token.entity {
+	cursor: help;
+}
+
+
+pre[data-line] {
+	position: relative;
+	padding: 1em 0 1em 3em;
+}
+
+
+.line-highlight {
+	position: absolute;
+	left: 0;
+	right: 0;
+	padding: inherit 0;
+	margin-top: 1em; /* Same as .prism’s padding-top */
+
+	background: hsla(24, 20%, 50%, .08);
+	background: linear-gradient(to right, hsla(24, 20%, 50%, .1) 70%, hsla(24, 20%, 50%, 0));
+
+	pointer-events: none;
+
+	line-height: inherit;
+	white-space: pre;
+}
+
+
+.line-highlight:before,
+	.line-highlight[data-end]:after {
+		content: attr(data-start);
+		position: absolute;
+		top: .4em;
+		left: .6em;
+		min-width: 1em;
+		padding: 0 .5em;
+		background-color: hsla(24, 20%, 50%, .4);
+		color: hsl(24, 20%, 95%);
+		font: bold 65%/1.5 sans-serif;
+		text-align: center;
+		vertical-align: .3em;
+		border-radius: 999px;
+		text-shadow: none;
+		box-shadow: 0 1px white;
+	}
+
+
+.line-highlight[data-end]:after {
+		content: attr(data-end);
+		top: auto;
+		bottom: .4em;
+	}
+
+
+.line-numbers .line-highlight:before,
+.line-numbers .line-highlight:after {
+	content: none;
+}
+
+
+pre[id].linkable-line-numbers span.line-numbers-rows {
+	pointer-events: all;
+}
+
+
+pre[id].linkable-line-numbers span.line-numbers-rows > span:before {
+	cursor: pointer;
+}
+
+
+pre[id].linkable-line-numbers span.line-numbers-rows > span:hover:before {
+	background-color: rgba(128, 128, 128, .2);
+}
+
+
+div.code-toolbar {
+	position: relative;
+}
+
+
+div.code-toolbar > .toolbar {
+	position: absolute;
+	top: .3em;
+	right: .2em;
+	transition: opacity 0.3s ease-in-out;
+	opacity: 0;
+}
+
+
+div.code-toolbar:hover > .toolbar {
+	opacity: 1;
+}
+
+
+/* Separate line b/c rules are thrown out if selector is invalid.
+   IE11 and old Edge versions don't support :focus-within. */
+
+
+div.code-toolbar:focus-within > .toolbar {
+	opacity: 1;
+}
+
+
+div.code-toolbar > .toolbar .toolbar-item {
+	display: inline-block;
+}
+
+
+div.code-toolbar > .toolbar a {
+	cursor: pointer;
+}
+
+
+div.code-toolbar > .toolbar button {
+	background: none;
+	border: 0;
+	color: inherit;
+	font: inherit;
+	line-height: normal;
+	overflow: visible;
+	padding: 0;
+	-webkit-user-select: none; /* for button */
+	-moz-user-select: none;
+	-ms-user-select: none;
+}
+
+
+div.code-toolbar > .toolbar a,
+div.code-toolbar > .toolbar button,
+div.code-toolbar > .toolbar span {
+	color: #bbb;
+	font-size: .8em;
+	padding: 0 .5em;
+	background: #f5f2f0;
+	background: rgba(224, 224, 224, .2);
+	box-shadow: 0 2px 0 0 rgba(0, 0, 0, .2);
+	border-radius: .5em;
+}
+
+
+div.code-toolbar > .toolbar a:hover,
+div.code-toolbar > .toolbar a:focus,
+div.code-toolbar > .toolbar button:hover,
+div.code-toolbar > .toolbar button:focus,
+div.code-toolbar > .toolbar span:hover,
+div.code-toolbar > .toolbar span:focus {
+	color: inherit;
+	text-decoration: none;
+}

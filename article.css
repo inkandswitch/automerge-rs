@@ -1,0 +1,1036 @@
+/* RESET ===================================== */
+
+:root {
+  -moz-osx-font-smoothing: auto;
+  -webkit-font-smoothing: subpixel-antialiased;
+  font-size: 16px;
+  -moz-osx--text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  font-smooth: auto;
+}
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, main, summary, time, mark, audio, video {
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  margin: 0;
+  padding: 0;
+  vertical-align: baseline;
+}
+
+/* LOAD FONTS ================================ */
+
+/* Merriweather Serif, for long form body text */
+
+@font-face {
+  font-family: "Merriweather";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Merriweather Regular"), local("Merriweather-Regular"), url("assets/merriweather/merriweather-v20-latin-regular.woff2") format("woff2"), /* Chrome 26+, Opera 23+, Firefox 39+ */
+  url("assets/merriweather/merriweather-v20-latin-regular.woff") format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Merriweather";
+  font-style: normal;
+  font-weight: 700;
+  src: local("Merriweather Bold"), local("Merriweather-Bold"), url("assets/merriweather/merriweather-v20-latin-700.woff2") format("woff2"), /* Chrome 26+, Opera 23+, Firefox 39+ */
+  url("assets/merriweather/merriweather-v20-latin-700.woff") format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  font-display: swap;
+}
+
+/* Merriweather Sans, for asides, caption, nav */
+
+@font-face {
+  font-family: "Merriweather Sans";
+  font-style: normal;
+  font-weight: 300;
+  src: local("Merriweather Sans Light"), local("MerriweatherSans-Light"), url("assets/merriweather/merriweather-sans-v10-latin-300.woff2") format("woff2"), /* Chrome 26+, Opera 23+, Firefox 39+ */
+  url("assets/merriweather/merriweather-sans-v10-latin-300.woff") format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Merriweather Sans";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Merriweather Sans"), local("MerriweatherSans-Regular"), url("assets/merriweather/merriweather-sans-v10-latin-regular.woff2") format("woff2"), /* Chrome 26+, Opera 23+, Firefox 39+ */
+  url("assets/merriweather/merriweather-sans-v10-latin-regular.woff") format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Merriweather Sans";
+  font-style: normal;
+  font-weight: 700;
+  src: local("Merriweather Sans Bold"), local("MerriweatherSans-Bold"), url("assets/merriweather/merriweather-sans-v10-latin-700.woff2") format("woff2"), /* Chrome 26+, Opera 23+, Firefox 39+ */
+  url("assets/merriweather/merriweather-sans-v10-latin-700.woff") format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Merriweather Sans";
+  font-style: normal;
+  font-weight: 300;
+  src: local("Merriweather Sans Light"), local("MerriweatherSans-Light"), url("assets/merriweather/merriweather-sans-v10-latin-300.woff2") format("woff2"), /* Chrome 26+, Opera 23+, Firefox 39+ */
+  url("assets/merriweather/merriweather-sans-v10-latin-300.woff") format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  font-display: swap;
+}
+
+/* Fira Mono, for code, numerical data ------- */
+
+@font-face {
+  font-family: 'Fira Mono';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Fira Mono Regular'), local('FiraMono-Regular'), url('assets/fira/fira-mono-v7-latin-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+  url('assets/fira/fira-mono-v7-latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Fira Mono';
+  font-style: normal;
+  font-weight: 500;
+  src: local('Fira Mono Medium'), local('FiraMono-Medium'), url('assets/fira/fira-mono-v7-latin-500.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+  url('assets/fira/fira-mono-v7-latin-500.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  font-display: swap
+}
+
+/* SET FONTS --------------------------------- */
+
+/* Serif, long form text, default rem size */
+body {
+  font-family: "Merriweather", serif;
+}
+
+/* Sans Serif, most other text */
+aside, figcaption, nav, header>ul li, h1, h2, h3, h4, blockquote, figure table, .nav {
+  font-family: "Merriweather Sans", sans-serif;
+  font-weight: 400;
+}
+
+/* Monospace */
+pre, code {
+  font-family: 'Fira Mono', monospace;
+}
+
+/* GENERAL STYLE ============================= */
+
+body {
+  --aside-width: 12.5rem;
+  --column-gap: 2rem;
+  --padding: 1rem;
+  align-self: start;
+  background-color: #fcfcfc;
+  box-sizing: border-box;
+  display: grid;
+  grid-column-gap: 0;
+  grid-template-columns:
+    [viewport-start] minmax(0, 1fr)
+    [page-start] var(--column-gap)
+    [article-start text-start] minmax(auto, calc((var(--aside-width) * 3) + (var(--column-gap) * 2)))
+    [text-end] var(--column-gap)
+    [margin-start] var(--aside-width)
+    [margin-end article-end] var(--column-gap)
+    [page-end] minmax(0, 1fr)
+    [viewport-end];
+  padding: 0;
+}
+
+
+/* Link style -------------------------------- */
+
+a {
+  background-image: url("assets/splat-underline-2-default.svg");
+  background-size: 100% 4px;
+  background-position: bottom;
+  background-repeat: no-repeat;
+  color: #000;
+  padding-bottom: .05rem;
+  text-decoration: none;
+  -webkit-tap-highlight-color:hsla(1, 76%, 51%, .4);
+}
+figcaption a, aside a {
+  padding-bottom: 0;
+}
+nav a {
+  background-image: none;
+}
+a:hover{
+  background-image: url("assets/splat-underline-2-hover.svg");
+  color: #D70A1B;
+}
+header p:last-of-type span a {
+  background-image: url("assets/splat-underline-1-default.svg");
+  padding-bottom: .1rem;
+}
+header p:last-of-type span a:hover{
+  background-image: url("assets/splat-underline-1-hover.svg");
+}
+::-moz-selection,
+::selection{
+    background: hsla(1, 0%, 75%, 0.4);
+    text-shadow: none;
+}
+
+/* Headers ----------------------------------- */
+
+h1 {
+  font-size: 2rem;
+  font-weight: 300;
+  line-height: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  margin-bottom: 1rem;
+  margin-top: 2rem;
+}
+
+h2#appendix {
+  background-image: url("assets/splat-separator-1.svg");
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: 100% 5px;
+  margin-top: 5rem;
+  margin-right: calc(var(--aside-width) + var(--column-gap));
+  padding-right: 0;
+  padding-top: 4rem;
+}
+
+h3 {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  margin: 2rem 0 1rem 0;
+}
+
+h4 {
+  margin: 2rem 0 1rem 0;
+}
+
+h1+h2, h2+h3 {
+  margin: -.5rem 0 1rem 0;
+}
+
+/* Text -------------------------------------- */
+
+p, li {
+  -ms-hyphens: auto;
+  -webkit-hyphens: auto;
+  font-size: 1rem;
+  hyphens: auto;
+  line-height: 1.5rem;
+  margin: 0 0 1.5rem 0;
+  text-align: justify;
+}
+
+small, sup {
+  font-size: .8125em;
+}
+
+strong {
+  font-weight: 700;
+}
+
+em {
+  font-style: italic;
+}
+
+sup {
+  display: inline-block;
+  padding-left: .125rem;
+  padding-right: .125rem;
+  position: relative;
+  top: .125rem;
+  vertical-align: top;
+  line-height: .75rem;
+}
+sup a {
+  background: none;
+  text-decoration: underline;
+}
+sup a:hover {
+  background: none;
+  text-decoration: underline;
+}
+
+/* Outro <p>, in Header and Conclusion ------- */
+
+header p:last-of-type {
+  margin-bottom: -1rem;
+  text-align: left;
+}
+
+header p:last-of-type a {
+  border: none;
+  -ms-hyphens: none;
+  -webkit-hyphens: none;
+  hyphens: none;
+  white-space: nowrap;
+}
+
+.splat {
+  background-image: url("assets/splat-span.svg");
+  background-position: bottom right;
+  background-repeat: no-repeat;
+  background-size: 1em;
+}
+
+/* The last splat */
+header p:last-of-type span {
+  background-image: url("assets/splat-article-last.svg");
+  background-position: bottom right;
+  background-repeat: no-repeat;
+  display: inline-block;
+  height: 2.5rem;
+  padding-right: 1.3rem;
+}
+
+/* HEADER ==================================== */
+
+body>header {
+  grid-column: article;
+  padding: var(--padding);
+  position: relative;
+  margin-top: var(--padding);
+}
+body>header>* {
+  padding-right: calc(var(--aside-width) + var(--column-gap));
+}
+
+/* byline ------------------------------------ */
+
+header #byline {
+  margin-bottom: 1rem;
+  margin-top: -3.5rem;
+}
+
+header>#byline li {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  text-indent: inherit;
+  line-height: 1.5rem;
+}
+header>#byline li::before {
+  content:none;
+  margin: 0;
+  padding: 0;
+}
+header #byline li:first-of-type {
+  margin-bottom: -.125rem;
+}
+header #byline #logo img {
+  display: block;
+  margin-left: -3rem;
+  width: var(--aside-width);
+}
+
+/* NAV ======================================= */
+/* Table of Contents ------------------------- */
+
+body>nav {
+  background-color: #f2f2f2;
+  border-radius: calc(var(--padding)/4);
+  display: grid;
+  grid-column: page;
+  grid-template-columns: var(--column-gap) [article-start nav-start] minmax(auto, calc((var(--aside-width) * 3) + (var(--column-gap) * 2))) [nav-end] var(--column-gap) [margin-start] var(--aside-width) [article-end] var(--column-gap);
+  margin-top: calc(var(--padding) * 2);
+  padding: 0;
+  padding: var(--padding) 0 var(--padding) 0;
+  position: relative;
+}
+
+body>nav h2 {
+  grid-column: article;
+  margin-bottom: 0;
+  margin-top: 1rem;
+}
+
+body>nav>div {
+  grid-column: nav;
+  padding: var(--padding);
+  padding-bottom: 0;
+}
+
+body>nav>div:last-child {
+  padding: var(--padding);
+}
+
+body>nav>h2 {
+  padding: 0 var(--padding) 0 var(--padding);
+}
+
+body>nav>div h3 {
+  margin-top: 0;
+}
+
+body>nav li {
+  line-height: 1.5rem;
+  margin-bottom: 0;
+  -ms-hyphens: manual;
+  -webkit-hyphens: manual;
+  hyphens: manual;
+  text-align: left;
+}
+
+body>nav ul, body>nav ol {
+  margin-bottom: 0;
+}
+
+body>nav li ul {
+  margin-bottom: 0rem;
+  margin-top: 0rem;
+}
+
+/* ARTICLE =================================== */
+
+body>article {
+  grid-column: article;
+  margin-bottom: 6rem;
+  padding:1rem;
+  position: relative;
+}
+body>article>* {
+  padding-right: calc(var(--aside-width) + var(--column-gap) + var(--padding));
+}
+body>article>section {
+  margin-bottom: 3rem;
+  padding-right: var(--padding);
+}
+
+/* Blockquotes ------------------------------- */
+
+blockquote {
+  -ms-hyphens: none;
+  -webkit-hyphens: none;
+  border-left: .2rem solid #f2f2f2;
+  hyphens: none;
+  line-height: 1.5rem;
+  margin-bottom: 1rem;
+  padding: 1rem 0 1rem .8rem;
+}
+
+blockquote, blockquote>* {
+  -ms-hyphens: none;
+  -webkit-hyphens: none;
+  font-size: 1rem;
+  font-weight: 300;
+  hyphens: none;
+  line-height: 1.5rem;
+}
+
+blockquote footer {
+  font-weight: 400;
+}
+
+blockquote footer::before {
+  content: "– "
+}
+
+/* Lists ------------------------------------- */
+
+/* unordered lists */
+
+ul, ol {
+  list-style: none;
+  margin-bottom: 1.5rem;
+  margin-left: 1rem;
+}
+
+li {
+  line-height: 1.5rem;
+  margin-bottom: .5rem;
+  text-align: justify;
+  text-indent: -1em;
+  white-space: normal;
+}
+li::before {
+  content: "￭";
+  font-family: 'Fira Mono', monospace;
+  font-weight: 500;
+  margin-right: .5rem;
+}
+li h3, li h4 {
+  display: inline;
+  font-size: inherit;
+}
+li ul {
+  margin-top: .5rem;
+}
+
+/* ordered lists */
+ol {
+  counter-reset: orderedlist;
+}
+ol li {
+  counter-increment: orderedlist;
+}
+ol li::before {
+  content: counter(orderedlist);
+}
+
+/* FIGURES =================================== */
+
+figure {
+  margin-bottom: var(--padding);
+  margin-right: calc(var(--padding)*-1);
+  padding-right: calc(var(--aside-width) + var(--column-gap) + var(--padding));
+  position: relative;
+  border-radius: calc(var(--padding)/4);
+}
+
+figure img, figure video {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  border: 1px solid #f2f2f2;
+  box-sizing: border-box;
+}
+
+figcaption {
+  background-color: #f2f2f2;
+  margin-right: 0;
+  top: 0;
+}
+
+/* Code -------------------------------------- */
+
+code {
+  background-color: #f2f2f2;
+  border-radius: calc(var(--padding)/4);
+  font-size: .8125rem;
+  padding: .125rem;
+  z-index: -1;
+}
+
+code span {
+  color: #7c7c7c;
+  font-style: italic;
+}
+
+figure>pre {
+  background-color: #020202;
+  border-radius: calc(var(--padding)/4);
+  box-sizing: border-box;
+  color: #f2f2f2;
+  display: block;
+  font-family: 'Fira Mono', monospace;
+  font-size: .8125rem;
+  line-height: 1.5rem;
+  max-width: 100%;
+  overflow: auto;
+  padding: var(--padding);
+  white-space: pre-wrap;
+}
+
+figure>pre code {
+  background: transparent;
+}
+
+figure>code::selection {
+  background-color: #D70A1B;
+}
+
+figcaption code, table code {
+  background-color: hsla(360, 100%, 0%, 0.05);
+}
+
+/* figure utility classes -------------------- */
+
+figure .grid {
+
+  display: grid;
+  grid-column-gap: var(--padding);
+  grid-row-gap: var(--padding);
+}
+
+figure .grid>* {
+  display: block;
+  grid-column: auto;
+  width: auto;
+}
+
+figure .grid-columns-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+figure .grid-columns-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+figure .grid-columns-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+figure .grid-columns-5 {
+  grid-template-columns: repeat(5, 1fr);
+}
+figure .grid-columns-6 {
+  grid-template-columns: repeat(6, 1fr);
+}
+
+figure .grid {
+  padding-bottom: 1rem;
+}
+figure .grid:last-of-type {
+  padding-bottom: 0;
+}
+
+/* Tables ------------------------------------ */
+
+figure table {
+  border: 1px solid #f2f2f2;
+  border-collapse: separate;
+  border-radius: calc(var(--padding)/4);
+  border-spacing: 0;
+  box-sizing: border-box;
+  text-align: left;
+  width: 100%;
+}
+
+figure table tr:nth-child(even) {
+  background-color: #fcfcfc;
+}
+
+figure table tr:nth-child(odd) {
+  background-color: #f2f2f2;
+}
+
+figure table th,
+figure table td,
+figure table td p
+{
+  text-align: left;
+}
+
+figure table th {
+  font-weight: 700;
+}
+
+figure table th, figure table td {
+  border-right: 1px solid #f2f2f2;
+  font-family: 'Merriweather Sans', sans-serif;
+  font-size: .8125rem;
+  padding: 1rem !important;
+  width: auto;
+}
+
+figure table th:first-of-type, figure table td:first-of-type {
+  padding-left: 0;
+}
+
+figure table th:last-of-type, figure table td:last-of-type {
+  border-right: none;
+  padding-right: 0;
+}
+
+figure table p {
+  font-size: .8125rem;
+  line-height: 1.25rem;
+  margin-bottom: .5rem;
+}
+
+figure table p:last-of-type {
+  margin: 0;
+}
+
+figure table svg {
+  background-color: hsla(360, 100%, 0%, 0.05);
+  max-width: 100%;
+}
+
+figure table svg rect {
+  fill: hsla(360, 100%, 0%, 1);
+}
+
+/* table utility classes */
+
+figure table.scorecard th strong {
+  display: block;
+}
+figure table.scorecard .good {
+  color: #22aa22;
+  font-weight: bold;
+  font-size: 1.25rem;
+}
+figure table.scorecard .okay {
+  color: #ff8800;
+  font-weight: bold;
+  font-size: 1.25rem;
+}
+figure table.scorecard .poor {
+  color: #aa2222;
+  font-weight: bold;
+  font-size: 1.25rem;
+}
+figure table.scorecard tr td:first-child, figure table.scorecard tr th {
+  white-space: nowrap;
+}
+figure table.scorecard th, figure table.scorecard td, figure table .align-center, figure table.align-center td, figure table.align-center th {
+  text-align: center;
+}
+figure table.row-highlight-off td {
+  border-bottom: 1px solid #f2f2f2;
+}
+
+figure table.row-highlight-off tr:last-child td {
+  border-bottom: none;
+}
+
+figure table.row-highlight-off tr:nth-child(even),
+figure table.row-highlight-off tr:nth-child(odd) {
+  background-color: #fcfcfc;
+}
+
+figure table.row-highlight-off th {
+  background-color: #f2f2f2;
+}
+
+figure table .column-number {
+  font-family: 'Fira Mono', monospace;
+  font-variant-numeric: slashed-zero tabular-nums;
+  text-align: right;
+  white-space: nowrap;
+}
+
+figure table.column-width-eigth td,
+figure table.column-width-eigth th,
+figure table .column-width-eigth {
+  width: 12.5%;
+}
+
+figure table.column-width-quarter td,
+figure table.column-width-quarter th,
+figure table .column-width-quarter {
+  width: 25%;
+}
+
+figure table.column-width-third td,
+figure table.column-width-third th,
+figure table .column-width-third {
+  width: 33.3333%;
+}
+
+figure table.column-width-half td,
+figure table.column-width-half th,
+figure table .column-width-half {
+  width: 50%;
+}
+figure table.column-width-auto td,
+figure table.column-width-auto th,
+figure table .column-width-auto {
+  width: auto;
+}
+
+figure table .column-width-text {
+  white-space: nowrap;
+}
+
+
+/* ASIDES ==================================== */
+
+article aside, figcaption, header>#byline {
+  --aside-offset: 1rem;
+  --aside-offset-lineheight: 1.5rem;
+  box-sizing: border-box;
+  margin-bottom: calc(var(--padding) * 2);
+  padding: var(--padding);
+  position: absolute;
+  right: 0;
+  width: var(--aside-width);
+}
+
+aside, figcaption, figure img, figure video {
+  border-radius: calc(var(--padding)/4);
+  max-width: 100%;
+}
+
+aside, aside>*, #byline, #byline li, figcaption, figcaption>*, blockquote footer {
+  font-size: 0.8125rem;
+  font-weight: 400;
+  -ms-hyphens: none;
+  -webkit-hyphens: none;
+  hyphens: none;
+  line-height: 1.25rem;
+  margin-bottom: 0.5rem;
+  text-align: left;
+}
+
+aside h4, aside h3, figcaption h4, figcaption h3 {
+  font-weight: 700;
+  letter-spacing: 0.15ch;
+  margin-bottom: 0.25rem;
+  margin-top: 0;
+  text-transform: uppercase;
+}
+
+aside code, figcaption code, table code {
+  line-height: inherit;
+  padding: .125rem;
+  white-space: nowrap;
+}
+
+aside p:last-child, figcaption p:last-child {
+  margin-bottom: 0;
+}
+
+
+
+/* when asides come before content, they need slight nudging */
+
+h2 + aside, h3 + aside {
+  margin-top: -.8125rem;
+}
+
+/* aside and figcaption callout -------------- */
+.callout, .wide figcaption, .wide aside {
+  float: none;
+  margin-bottom: .5rem;
+  margin-top: -1rem;
+  width: 100%;
+  position: relative;
+  right: inherit;
+}
+figure .callout {
+  border-radius: calc(var(--padding)/4) calc(var(--padding)/4) 0 0;
+  margin-bottom: -.125rem;
+}
+
+/* when figcaptions come after content, they need different borders */
+
+* + .callout {
+  border-radius: 0 0 calc(var(--padding)/4) calc(var(--padding)/4);
+  margin-top: -.125rem;
+}
+
+/* aside and figcaption nudge ---------------- */
+
+/* using these can cause overlapping of elements. if you apply to one aside, you may need to apply and adjust other that precede clearing the blocks figcaption or section  */
+
+.move-up {
+  margin-top: calc((var(--aside-offset) + (var(--aside-offset-lineheight)*var(--move-up)))/-1);
+}
+
+/* Wide Content ------------------------------ */
+
+.wide, .wide * {
+  padding: 0;
+}
+.wide {
+  /* In the original I&S CSS, this was overflow-x: scroll.
+     But for the Cambria paper, we don't want scrollbars on lens demos. */ 
+  overflow-x: hidden !important;
+}
+.wide aside, .wide figcaption, .wide>pre+figcaption {
+  border-radius: none;
+  margin: 0;
+  padding: var(--padding);
+  position: relative;
+  right: inherit;
+  top: inherit;
+  width: auto;
+}
+
+.wide figcaption {
+  border-radius: 0 0 calc(var(--padding)/4) calc(var(--padding)/4) !important;
+  margin-bottom: 1rem;
+  margin-top: -.5rem !important;
+  position: relative;
+  right: inherit;
+  top: inherit;
+}
+
+.wide figcaption:first-child, .wide table+figcaption, .wide .grid+figcaption {
+  border-radius: calc(var(--padding)/4) calc(var(--padding)/4) !important;
+  margin-top: 1rem !important;
+}
+
+/* =========================================== */
+/* RESPONSIVE LAYOUT ========================= */
+/* =========================================== */
+
+/* smaller viewports ------------------------- */
+
+@media only screen and (max-width: 40rem) {
+  .move-up-1, .move-up-2, .move-up-3, .move-up-4, .move-up-5, .move-up-6, .move-up-7, .move-up-8, .move-up-9, .move-up-10, .move-up-11, .move-up-12, .move-up-13, .move-up-14, .move-up-15, .move-up-16, .move-up-17, .move-up-18, .move-up-19, .move-up-20, .move-up-21, .move-up-22, .move-up-23, .move-up-24, .move-up-25 {
+    margin-top: auto;
+  }
+  body {
+    grid-template-columns:
+      [viewport-start page-start] var(--column-gap)
+      [article-start text-start] 1fr
+      [text-end] var(--column-gap)
+      [margin-start] var(--aside-width)
+      [article-end] var(--column-gap)
+      [page-end viewport-end];
+    padding-top: 1rem;
+  }
+  body>article>*, body>header>* {
+    padding-right: 0;
+  }
+
+  header>ul#byline {
+    display: block;
+    margin: 0;
+    margin-top: -1.5rem;
+    padding-bottom: 1.5rem !important;
+    padding: 0;
+    clear: both;
+  }
+
+  header>#byline li:first-child {
+    margin-top: 1rem;
+  }
+
+  header #byline #logo img {
+    margin-left: -0.75rem;
+    margin-top: -1.5rem;
+    width: 9rem;
+  }
+
+  article figure {
+    border-radius: 0 0 calc(var(--padding)/4) calc(var(--padding)/4) !important;
+    margin-right:0;
+    overflow-x: scroll;
+    width: auto;
+  }
+  article aside, figure figcaption, figure>pre+figcaption, header>#byline {
+    border-radius: none;
+    margin: 0;
+    position: relative;
+    right: inherit;
+    top: inherit;
+    width: auto;
+  }
+
+  figure figcaption {
+    border-radius: 0 0 calc(var(--padding)/4) calc(var(--padding)/4) !important;
+    margin-bottom: 1rem;
+    margin-top: -.5rem !important;
+    position: relative;
+    right: inherit;
+    top: inherit;
+  }
+
+  article aside {
+    margin-top: -1.5rem !important;
+  }
+
+  figure figcaption:first-child, article table+figcaption, figure .grid+figcaption {
+    border-radius: calc(var(--padding)/4) calc(var(--padding)/4) !important;
+    margin-top: 1rem !important;
+  }
+  article h2#appendix {
+    margin-right: 0;
+  }
+  article figure table,
+  article figure table td,
+  article figure table th {
+    width: auto;
+    overflow: auto;
+  }
+  article figure table td,
+  article figure table th {
+    position: sticky;
+  }
+
+  article ul li{
+    text-align: left;
+  }
+  .wide {
+    width: calc(100vw - calc(var(--padding) * 3));
+  }
+}
+
+/* 812px ------------------------------------- */
+
+
+@media only screen and (max-width: 812px) {
+  body {
+    background-color: #fcfcfc;
+    padding: 0;
+  }
+  body>nav {
+    border-radius: 0;
+  }
+}
+
+/* 768px ------------------------------------- */
+
+@media only screen and (max-width: 768px) {
+  body {
+    grid-template-columns:
+      [viewport-start page-start] minmax(0, var(--padding))
+      [article-start text-start] 1fr
+      [text-end] var(--column-gap)
+      [margin-start] var(--aside-width)
+      [margin-end article-end]
+      minmax(0, var(--padding))
+      [page-end viewport-end];
+  }
+  body>nav {
+    background-color: #f2f2f2;
+    border-radius: 0;
+    display: grid;
+    grid-column: page;
+    grid-template-columns:
+      minmax(0, var(--padding))
+      [article-start nav-start] 1fr
+      [nav-end] var(--column-gap)
+      [margin-start] var(--aside-width)
+      [margin-end article-end]
+      minmax(0, var(--padding));
+    margin-top: 2rem;
+    padding: 0;
+  }
+  .wide {
+    width: calc(100vw - calc(var(--padding) * 3));
+  }
+}
+
+/* 480px ------------------------------------- */
+
+@media only screen and (max-width: 480px) {
+  body {
+    grid-template-columns:
+      [viewport-start page-start] 0
+      [article-start text-start] 1fr
+      [text-end] var(--column-gap)
+      [margin-start] var(--aside-width)
+      [margin-end article-end] 0
+      [page-end viewport-end];
+  }
+  body>nav {
+    background-color: #f2f2f2;
+    border-radius: 0;
+    display: grid;
+    grid-column: page;
+    grid-template-columns:
+      [article-start nav-start] 1fr
+      [nav-end] var(--column-gap)
+      [margin-start] var(--aside-width)
+      [margin-end article-end];
+    padding: 0;
+  }
+  body>nav div {
+    grid-column: article;
+  }
+  blockquote {
+    padding: calc(var(--padding)/4);
+  }
+  .wide {
+    width: calc(100vw - calc(var(--padding) * 2));
+  }
+}
+
+/* iPad Pro ---------------------------------- */
+
+@media only screen and (min-width: 834px) and (max-height: 1194px) and (-webkit-min-device-pixel-ratio: 2) {
+  nav {
+    border-radius: 0;
+  }
+}

@@ -63,12 +63,22 @@ While we hit the goals of being a correct CRDT that was easy to use, there were 
 <p>Martin began work on the <a href="https://github.com/automerge/automerge/tree/performance">performance branch</a> to address these problems.  The new, but unreleased, version of Automerge is much more robust, and solves many of the performance problems of the original.  But most importantly creates an extremely efficiently compressed binary format that makes radical improvements on the memory and storage footprint of these documents.  This performance branch is very solid for day-to-day use but not recommended for anything in production as tweaks to the binary format and api calls are still happening regularly.</p>
 <p>Early this year, I decided that Automerge was ready move from its proof-of-concept javascript-only implementation to the cross-platform, high performance implementation I&rsquo;ve always desired. To accomplish this, <a href="https://github.com/alexjg">Alex Good</a> and I teamed up to write <a href="https://github.com/automerge/automerge-rs">AutomergeRS</a>, an API compatible implementation of Automerge&rsquo;s Backend half, implemented in Rust, with WASM bindings.  The package also contains an early implementation of a rust-native frontend, and C bindings for the backend, to enable Frontend implementations in other languages such as Swift.  While there is not an official npm package for AutomergeRS yet, I have <a href="https://github.com/orionz/automerge/tree/wasm-node">rolled one for myself</a>.  It only works in Node, as the wasm loading is async in the browser and would require the library to be wrapped in a promise.</p>
 <p>We modified a <a href="https://github.com/orionz/automerge-perf">pre existing performance test</a> made by Martin to ensure we met or exceeded the performance of the javascript performance branch.</p>
+
+
+<figure>
+
+
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ node automerge-text.js
 <span class="nv">mode</span><span class="o">=</span>js   <span class="nv">step</span><span class="o">=</span><span class="m">2000</span> <span class="nv">time</span><span class="o">=</span>76358ms
 <span class="nv">mode</span><span class="o">=</span>wasm <span class="nv">step</span><span class="o">=</span><span class="m">2000</span> <span class="nv">time</span><span class="o">=</span>8491ms
 <span class="nv">mode</span><span class="o">=</span>js   <span class="nv">step</span><span class="o">=</span><span class="m">100</span>  <span class="nv">time</span><span class="o">=</span>43054ms
 <span class="nv">mode</span><span class="o">=</span>wasm <span class="nv">step</span><span class="o">=</span><span class="m">100</span>  <span class="nv">time</span><span class="o">=</span>17044ms
-</code></pre></div><h3 id="next-steps">Next Steps</h3>
+</code></pre></div>
+
+</figure>
+
+
+<h3 id="next-steps">Next Steps</h3>
 <p>There are many steps in getting Automerge ready for the big time. But a very important one that I am personally focused on is making sure Automerge is the performance king of CRDT&rsquo;s.  That crown is currently held by <a href="git@github.com:yjs/yjs.git">yjs</a>, an excellent CRDT that focuses specifically on collaborative text editing.  Now, there&rsquo;s some apples-to-oranges issues in comparing them, as these two CRDT&rsquo;s have very different goals.  Yjs is javascript only, Automerge intends to be available on all platforms.  Yjs is for managing lists (or things you can build out of lists) with a bespoke API.  Automerge allows you to manage your document as a plain old javascript object with arbitrarily nested maps and lists.  Yjs does not preserve the document history in a meaningful way, whereas Automerge preserves the entire history and allows for easy point in time recovery and branching, similar to Git.  Automerge allows you to move the CRDT portion of the document out of the render thread, or even onto a different machine, via the frontend/backend split, while Yjs just focuses on being fast enough that you shouldn&rsquo;t need to.</p>
 <p>Nevertheless I wanted to see how far we needed to go to catch up and what I could learn from their approach.  We adapted an <a href="https://github.com/orionz/crdt-benchmarks">existing benchmark</a> used to compare Yjs to other CRDTs to see what we could see.  This test suite is very comprehensive and has been invaluable to work with.  But for this post I want to cherry pick a handful of tests that I think distill the current performance story</p>
 
@@ -89,24 +99,24 @@ While we hit the goals of being a correct CRDT that was easy to use, there were 
 <tr>
 <td>Version</td>
 <td>13.4.1</td>
-<td>1.0.0-pre1</td>
-<td>1.0.0-pre1</td>
+<td>09-08-2020</td>
+<td>09-08-2020</td>
 </tr>
 <tr>
 <td>[B1.2] Insert string of length N (time)</td>
-<td>4 ms</td>
+<td>4 ms</td>
 <td>441 ms</td>
 <td>35 ms</td>
 </tr>
 <tr>
 <td>[B1.4] Insert N characters at random positions (time)</td>
-<td>99 ms</td>
+<td>99 ms</td>
 <td>947 ms</td>
 <td>224 ms</td>
 </tr>
 <tr>
 <td>[B3.1] 20√N clients concurrently set number in Map (time)</td>
-<td>95 ms</td>
+<td>95 ms</td>
 <td>516 ms</td>
 <td>8 ms</td>
 </tr>

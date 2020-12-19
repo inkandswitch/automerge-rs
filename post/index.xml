@@ -25,12 +25,22 @@ While we hit the goals of being a correct CRDT that was easy to use, there were 
 &lt;p&gt;Martin began work on the &lt;a href=&#34;https://github.com/automerge/automerge/tree/performance&#34;&gt;performance branch&lt;/a&gt; to address these problems.  The new, but unreleased, version of Automerge is much more robust, and solves many of the performance problems of the original.  But most importantly creates an extremely efficiently compressed binary format that makes radical improvements on the memory and storage footprint of these documents.  This performance branch is very solid for day-to-day use but not recommended for anything in production as tweaks to the binary format and api calls are still happening regularly.&lt;/p&gt;
 &lt;p&gt;Early this year, I decided that Automerge was ready move from its proof-of-concept javascript-only implementation to the cross-platform, high performance implementation I&amp;rsquo;ve always desired. To accomplish this, &lt;a href=&#34;https://github.com/alexjg&#34;&gt;Alex Good&lt;/a&gt; and I teamed up to write &lt;a href=&#34;https://github.com/automerge/automerge-rs&#34;&gt;AutomergeRS&lt;/a&gt;, an API compatible implementation of Automerge&amp;rsquo;s Backend half, implemented in Rust, with WASM bindings.  The package also contains an early implementation of a rust-native frontend, and C bindings for the backend, to enable Frontend implementations in other languages such as Swift.  While there is not an official npm package for AutomergeRS yet, I have &lt;a href=&#34;https://github.com/orionz/automerge/tree/wasm-node&#34;&gt;rolled one for myself&lt;/a&gt;.  It only works in Node, as the wasm loading is async in the browser and would require the library to be wrapped in a promise.&lt;/p&gt;
 &lt;p&gt;We modified a &lt;a href=&#34;https://github.com/orionz/automerge-perf&#34;&gt;pre existing performance test&lt;/a&gt; made by Martin to ensure we met or exceeded the performance of the javascript performance branch.&lt;/p&gt;
+
+
+&lt;figure&gt;
+
+
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ node automerge-text.js
 &lt;span class=&#34;nv&#34;&gt;mode&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;js   &lt;span class=&#34;nv&#34;&gt;step&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;2000&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;time&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;76358ms
 &lt;span class=&#34;nv&#34;&gt;mode&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;wasm &lt;span class=&#34;nv&#34;&gt;step&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;2000&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;time&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;8491ms
 &lt;span class=&#34;nv&#34;&gt;mode&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;js   &lt;span class=&#34;nv&#34;&gt;step&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;100&lt;/span&gt;  &lt;span class=&#34;nv&#34;&gt;time&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;43054ms
 &lt;span class=&#34;nv&#34;&gt;mode&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;wasm &lt;span class=&#34;nv&#34;&gt;step&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;100&lt;/span&gt;  &lt;span class=&#34;nv&#34;&gt;time&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;17044ms
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;next-steps&#34;&gt;Next Steps&lt;/h3&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/figure&gt;
+
+
+&lt;h3 id=&#34;next-steps&#34;&gt;Next Steps&lt;/h3&gt;
 &lt;p&gt;There are many steps in getting Automerge ready for the big time. But a very important one that I am personally focused on is making sure Automerge is the performance king of CRDT&amp;rsquo;s.  That crown is currently held by &lt;a href=&#34;git@github.com:yjs/yjs.git&#34;&gt;yjs&lt;/a&gt;, an excellent CRDT that focuses specifically on collaborative text editing.  Now, there&amp;rsquo;s some apples-to-oranges issues in comparing them, as these two CRDT&amp;rsquo;s have very different goals.  Yjs is javascript only, Automerge intends to be available on all platforms.  Yjs is for managing lists (or things you can build out of lists) with a bespoke API.  Automerge allows you to manage your document as a plain old javascript object with arbitrarily nested maps and lists.  Yjs does not preserve the document history in a meaningful way, whereas Automerge preserves the entire history and allows for easy point in time recovery and branching, similar to Git.  Automerge allows you to move the CRDT portion of the document out of the render thread, or even onto a different machine, via the frontend/backend split, while Yjs just focuses on being fast enough that you shouldn&amp;rsquo;t need to.&lt;/p&gt;
 &lt;p&gt;Nevertheless I wanted to see how far we needed to go to catch up and what I could learn from their approach.  We adapted an &lt;a href=&#34;https://github.com/orionz/crdt-benchmarks&#34;&gt;existing benchmark&lt;/a&gt; used to compare Yjs to other CRDTs to see what we could see.  This test suite is very comprehensive and has been invaluable to work with.  But for this post I want to cherry pick a handful of tests that I think distill the current performance story&lt;/p&gt;
 
@@ -51,24 +61,24 @@ While we hit the goals of being a correct CRDT that was easy to use, there were 
 &lt;tr&gt;
 &lt;td&gt;Version&lt;/td&gt;
 &lt;td&gt;13.4.1&lt;/td&gt;
-&lt;td&gt;1.0.0-pre1&lt;/td&gt;
-&lt;td&gt;1.0.0-pre1&lt;/td&gt;
+&lt;td&gt;09-08-2020&lt;/td&gt;
+&lt;td&gt;09-08-2020&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;[B1.2] Insert string of length N (time)&lt;/td&gt;
-&lt;td&gt;4 ms&lt;/td&gt;
+&lt;td&gt;4 ms&lt;/td&gt;
 &lt;td&gt;441 ms&lt;/td&gt;
 &lt;td&gt;35 ms&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;[B1.4] Insert N characters at random positions (time)&lt;/td&gt;
-&lt;td&gt;99 ms&lt;/td&gt;
+&lt;td&gt;99 ms&lt;/td&gt;
 &lt;td&gt;947 ms&lt;/td&gt;
 &lt;td&gt;224 ms&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td&gt;[B3.1] 20√N clients concurrently set number in Map (time)&lt;/td&gt;
-&lt;td&gt;95 ms&lt;/td&gt;
+&lt;td&gt;95 ms&lt;/td&gt;
 &lt;td&gt;516 ms&lt;/td&gt;
 &lt;td&gt;8 ms&lt;/td&gt;
 &lt;/tr&gt;

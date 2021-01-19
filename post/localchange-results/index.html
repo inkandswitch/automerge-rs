@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>LocalChange Results, Alex Rejoins, Next Steps</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+
+    
+    
+      <link href="/automerge-rs/dist/css/app.49ec1ced88badbf69e4461b6406cad5a.css" rel="stylesheet">
+    
+
+    <link rel="stylesheet" href="/automerge-rs/house.css">
+
+    
+      
+
+    
+
+    <meta property="og:title" content="LocalChange Results, Alex Rejoins, Next Steps" />
+<meta property="og:description" content="Progress report The LocalChange branch has been merged In our last update we described a performance optimization we wanted to make which we suspected would improve our performance by shiftng responsibility for tracking changes from the backend of the library to the frontend. We&rsquo;re pleased to report that the localChange branch has been merged and is showing good results on the benchmarking front.
+    automerge1  automerge1  automergeWASM automergeWASM     Version 09-08-2020 01-07-2021 09-08-2020 01-07-2021   [B1." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://inkandswitch.github.io/automerge-rs/post/localchange-results/" />
+<meta itemprop="name" content="LocalChange Results, Alex Rejoins, Next Steps">
+<meta itemprop="description" content="Progress report The LocalChange branch has been merged In our last update we described a performance optimization we wanted to make which we suspected would improve our performance by shiftng responsibility for tracking changes from the backend of the library to the frontend. We&rsquo;re pleased to report that the localChange branch has been merged and is showing good results on the benchmarking front.
+    automerge1  automerge1  automergeWASM automergeWASM     Version 09-08-2020 01-07-2021 09-08-2020 01-07-2021   [B1.">
+
+<meta itemprop="wordCount" content="655">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="LocalChange Results, Alex Rejoins, Next Steps"/>
+<meta name="twitter:description" content="Progress report The LocalChange branch has been merged In our last update we described a performance optimization we wanted to make which we suspected would improve our performance by shiftng responsibility for tracking changes from the backend of the library to the frontend. We&rsquo;re pleased to report that the localChange branch has been merged and is showing good results on the benchmarking front.
+    automerge1  automerge1  automergeWASM automergeWASM     Version 09-08-2020 01-07-2021 09-08-2020 01-07-2021   [B1."/>
+
+  </head>
+
+  <body class="">
+    
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <h1 class="f1 mt3 mb1">LocalChange Results, Alex Rejoins, Next Steps</h1><ul id="byline">
+  <li><a href="index.html" id="logo" title="Visit Ink & Switch Home Page"><img src="/automerge-rs/assets/logo-lockup.svg" title="Ink & Switch Logo" /></a></li>
+  
+  <li class="vcard"><a class="url fn" href="https://github.com/orionz/" title="Visit Orion Henry's Website">Orion Henry</a></li>
+  
+  <li class="vcard"><a class="url fn" href="https://www.pvh.ca" title="Visit Peter van Hardenberg's Website">Peter van Hardenberg</a></li>
+  
+  <li><time class="f6 mv4 dib tracked" datetime="0001-01-01T00:00:00Z">January 1, 0001</time></li>
+</ul>
+</header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h2 id="progress-report">Progress report</h2>
+<h3 id="the-localchange-branch-has-been-merged">The LocalChange branch has been merged</h3>
+<p>In our <a href="https://inkandswitch.github.io/automerge-rs/post/towards-production/">last update</a> we described a performance optimization we wanted to make which we suspected would improve our performance by shiftng responsibility for tracking changes from the backend of the library to the frontend. We&rsquo;re pleased to report that the <code>localChange</code> branch has been merged and is showing good results on the benchmarking front.</p>
+
+
+<figure>
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>automerge1  </th>
+<th>automerge1 </th>
+<th>automergeWASM</th>
+<th>automergeWASM</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Version</td>
+<td>09-08-2020</td>
+<td>01-07-2021</td>
+<td>09-08-2020</td>
+<td>01-07-2021</td>
+</tr>
+<tr>
+<td>[B1.2] Insert string of length N (time)</td>
+<td>441 ms</td>
+<td>288 ms</td>
+<td>35 ms</td>
+<td>22 ms</td>
+</tr>
+<tr>
+<td>[B1.4] Insert N characters at random positions (time)</td>
+<td>947 ms</td>
+<td>164 ms</td>
+<td>224 ms</td>
+<td>164 ms</td>
+</tr>
+<tr>
+<td>[B3.1] 20√N clients concurrently set number in Map (time)</td>
+<td>516 ms</td>
+<td>492 ms</td>
+<td>8 ms</td>
+<td>8 ms</td>
+</tr>
+</tbody>
+</table>
+
+
+</figure>
+
+
+<p>These show significant improvements on test <code>B1.2</code> and <code>B1.4</code> as both of these tests hammer the  <code>applyLocalChange</code> path and no change was expected on <code>B3.1</code> as it relies only on <code>applyChanges</code> and does no local change transform.</p>
+<p>Also the hard work by Martin Kleppmann can be seen in the greatly improved numbers in automerge1 over this timeframe.</p>
+<h3 id="alex-good-is-back-on-the-project">Alex Good is back on the project</h3>
+<p>Alex Good is back on the team working full time on the push to get <code>automerge-rs</code> to a 1.0 release.  He has already cleaned up the tests, reorganized the code across the <code>automerge-protocol</code> package and merged a huge rewrite of the <code>automerge-frontend</code> crate.</p>
+<h3 id="blockers-for-a-10-release">Blockers for a 1.0 release</h3>
+<p>Currently there are two projects that stand as hard blockers for a release of <code>automerge-wasm</code> simultaneous automerge 1.0.</p>
+<p>First the whole document compression mode is not yet implemented in rust.  This method takes a stack of changes, does the column compression algorithm on the changes itself, and then merges the ops across all changes and compresses them as well.  All the tests currently pass without this feature but if a document were saved in the js version currently it could not be loaded in the wasm version.</p>
+<p>Second <code>automerge-wasm</code> needs to be packaged properly.  Currently there is no official packaging, and users need to compile the wasm manually to make use of it.</p>
+<h3 id="next-steps-in-performance-work">Next steps in performance work</h3>
+<p>One issue that needs to be addressed is that the <code>wasm-pack</code> binary throws out function names when doing a profile build.  This is a <a href="https://github.com/rustwasm/wasm-pack/issues/797">known issue</a> but the workarounds have not worked for us yet.  Without this we have to base our profiling on debug builds which will sometimes cause us to focus on tuning up code that the compile already knows how to optimize but isn&rsquo;t.  But even with this lack of visibility in profiling it&rsquo;s starting to look like the js/wasm call interface is starting to be the problem.  Currently JS objects like the <code>UncompressedChange</code> and the <code>Patch</code> object get converted into a json string and then parsed as the intermediary on both the call and return value for each function call.  Interestingly binary changes do not do this as they are &hellip; well &hellip; just binary.  The only cost is copying them directly between js memory and wasm memory.  This is part of the reason why test <code>B3.1</code> is so very fast.   Alternate ways to pass data back and forth between the layers is being looked into.</p>
+<p>In furtherance of this, Alex is currently duplicating the benchmark suite in pure rust so we can get a better idea of how much of the problem is the js/wasm interface.</p>
+<p>Most of the tests when run with 10x the data take about 10x the time.  There are 3 tests showing much worse numbers than they should at larger sizes.  These need to be looked into and remedied, hopefully being easy wins for performance.</p>
+
+
+<figure>
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>automerge1</th>
+<th>automerge1</th>
+<th>automergeWASM</th>
+<th>automergeWASM</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Version</td>
+<td>N=1000</td>
+<td>N=10000</td>
+<td>N=1000</td>
+<td>N=10000</td>
+</tr>
+<tr>
+<td>[B1.3] Prepend N characters (time)</td>
+<td>2080 ms</td>
+<td>270069 ms</td>
+<td>175 ms</td>
+<td>3624 ms</td>
+</tr>
+<tr>
+<td>[B1.5] Insert N words at random positions (time)</td>
+<td>1619 ms</td>
+<td>46180 ms</td>
+<td>404 ms</td>
+<td>26491 ms</td>
+</tr>
+<tr>
+<td>[B1.10]  Prepend N numbers (time)</td>
+<td>2136 ms</td>
+<td>273761 ms</td>
+<td>209 ms</td>
+<td>4664 ms</td>
+</tr>
+</tbody>
+</table>
+
+
+</figure>
+
+
+<ul class="pa0">
+  
+</ul>
+</div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    
+
+  <script src="/automerge-rs/dist/js/app.50f197db0901b16e3144.js"></script>
+
+
+
+  </body>
+</html>

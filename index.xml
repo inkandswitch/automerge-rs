@@ -6,10 +6,138 @@
     <description>Recent content in Automerge-RS on Automerge-RS Development</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 18 Dec 2020 09:55:33 -0800</lastBuildDate>
+    <lastBuildDate>Tue, 19 Jan 2021 09:55:33 -0800</lastBuildDate>
     
 	<atom:link href="http://inkandswitch.github.io/automerge-rs/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>LocalChange Results, Alex Rejoins</title>
+      <link>http://inkandswitch.github.io/automerge-rs/post/localchange-results/</link>
+      <pubDate>Tue, 19 Jan 2021 09:55:33 -0800</pubDate>
+      
+      <guid>http://inkandswitch.github.io/automerge-rs/post/localchange-results/</guid>
+      <description>LocalChange improves several benchmarks 35% In our last update we described a performance optimization we wanted to make which we suspected would improve our performance by shiftng responsibility for tracking changes from the backend of the library to the frontend. We&amp;rsquo;re pleased to report that the localChange branch has been merged and is showing good results on the benchmarking front.
+    automerge1  automerge1  automergeWASM automergeWASM     Version 09-08-2020 01-07-2021 09-08-2020 01-07-2021   [B1.</description>
+      <content>&lt;h2 id=&#34;localchange-improves-several-benchmarks-35&#34;&gt;LocalChange improves several benchmarks 35%&lt;/h2&gt;
+&lt;p&gt;In our &lt;a href=&#34;https://inkandswitch.github.io/automerge-rs/post/towards-production/&#34;&gt;last update&lt;/a&gt; we described a performance optimization we wanted to make which we suspected would improve our performance by shiftng responsibility for tracking changes from the backend of the library to the frontend. We&amp;rsquo;re pleased to report that the &lt;code&gt;localChange&lt;/code&gt; branch has been merged and is showing good results on the benchmarking front.&lt;/p&gt;
+
+
+&lt;figure&gt;
+
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;automerge1  &lt;/th&gt;
+&lt;th&gt;automerge1 &lt;/th&gt;
+&lt;th&gt;automergeWASM&lt;/th&gt;
+&lt;th&gt;automergeWASM&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Version&lt;/td&gt;
+&lt;td&gt;09-08-2020&lt;/td&gt;
+&lt;td&gt;01-07-2021&lt;/td&gt;
+&lt;td&gt;09-08-2020&lt;/td&gt;
+&lt;td&gt;01-07-2021&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;[B1.2] Insert string of length N (time)&lt;/td&gt;
+&lt;td&gt;441 ms&lt;/td&gt;
+&lt;td&gt;288 ms&lt;/td&gt;
+&lt;td&gt;35 ms&lt;/td&gt;
+&lt;td&gt;22 ms&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;[B1.4] Insert N characters at random positions (time)&lt;/td&gt;
+&lt;td&gt;947 ms&lt;/td&gt;
+&lt;td&gt;164 ms&lt;/td&gt;
+&lt;td&gt;224 ms&lt;/td&gt;
+&lt;td&gt;164 ms&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;[B3.1] 20√N clients concurrently set number in Map (time)&lt;/td&gt;
+&lt;td&gt;516 ms&lt;/td&gt;
+&lt;td&gt;492 ms&lt;/td&gt;
+&lt;td&gt;8 ms&lt;/td&gt;
+&lt;td&gt;8 ms&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+&lt;/figure&gt;
+
+
+&lt;p&gt;These show significant improvements on test &lt;code&gt;B1.2&lt;/code&gt; and &lt;code&gt;B1.4&lt;/code&gt; as both of these tests hammer the  &lt;code&gt;applyLocalChange&lt;/code&gt; path and no change was expected on &lt;code&gt;B3.1&lt;/code&gt; as it relies only on &lt;code&gt;applyChanges&lt;/code&gt; and does no local change transform.&lt;/p&gt;
+&lt;p&gt;Also the hard work by Martin Kleppmann can be seen in the greatly improved numbers in automerge1 over this timeframe.&lt;/p&gt;
+&lt;h2 id=&#34;project-initiator-alex-good-returns-full-time&#34;&gt;Project initiator Alex Good returns full-time&lt;/h2&gt;
+&lt;p&gt;The first version of Automerge-RS was written by &lt;a href=&#34;https://github.com/alexjg&#34;&gt;Alex Good&lt;/a&gt;, who we teamed up with to build the first version of Automerge-RS last spring.
+We&amp;rsquo;re pleased to say that Alex is back with us on the team working full time on the push to get &lt;code&gt;automerge-rs&lt;/code&gt; to a 1.0 release.  He has already cleaned up the tests, reorganized the code across the &lt;code&gt;automerge-protocol&lt;/code&gt; package and merged a huge rewrite of the &lt;code&gt;automerge-frontend&lt;/code&gt; crate.&lt;/p&gt;
+&lt;h2 id=&#34;blockers-for-a-10-release&#34;&gt;Blockers for a 1.0 release&lt;/h2&gt;
+&lt;p&gt;Currently there are two projects that stand as hard blockers for a release of &lt;code&gt;automerge-wasm&lt;/code&gt; simultaneous automerge 1.0.&lt;/p&gt;
+&lt;p&gt;First the whole document compression mode is not yet implemented in rust.  This method takes a stack of changes, does the column compression algorithm on the changes itself, and then merges the ops across all changes and compresses them as well.  All the tests currently pass without this feature but if a document were saved in the js version currently it could not be loaded in the wasm version.&lt;/p&gt;
+&lt;p&gt;Second &lt;code&gt;automerge-wasm&lt;/code&gt; needs to be packaged properly.  Currently there is no official packaging, and users need to compile the wasm manually to make use of it.&lt;/p&gt;
+&lt;h2 id=&#34;next-steps-in-performance-work&#34;&gt;Next steps in performance work&lt;/h2&gt;
+&lt;p&gt;One issue that needs to be addressed is that the &lt;code&gt;wasm-pack&lt;/code&gt; binary throws out function names when doing a profile build.  This is a &lt;a href=&#34;https://github.com/rustwasm/wasm-pack/issues/797&#34;&gt;known issue&lt;/a&gt; but the workarounds have not worked for us yet.  Without this we have to base our profiling on debug builds which will sometimes cause us to focus on tuning up code that the compile already knows how to optimize but isn&amp;rsquo;t.  But even with this lack of visibility in profiling it&amp;rsquo;s starting to look like the js/wasm call interface is starting to be the problem.  Currently JS objects like the &lt;code&gt;UncompressedChange&lt;/code&gt; and the &lt;code&gt;Patch&lt;/code&gt; object get converted into a json string and then parsed as the intermediary on both the call and return value for each function call.  Interestingly binary changes do not do this as they are &amp;hellip; well &amp;hellip; just binary.  The only cost is copying them directly between js memory and wasm memory.  This is part of the reason why test &lt;code&gt;B3.1&lt;/code&gt; is so very fast.   Alternate ways to pass data back and forth between the layers is being looked into.&lt;/p&gt;
+&lt;p&gt;In furtherance of this, Alex is currently duplicating the benchmark suite in pure rust so we can get a better idea of how much of the problem is the js/wasm interface.&lt;/p&gt;
+&lt;p&gt;Most of the tests when run with 10x the data take about 10x the time.  There are 3 tests showing much worse numbers than they should at larger sizes.  These need to be looked into and remedied, hopefully being easy wins for performance.&lt;/p&gt;
+
+
+&lt;figure&gt;
+
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;automerge1&lt;/th&gt;
+&lt;th&gt;automerge1&lt;/th&gt;
+&lt;th&gt;automergeWASM&lt;/th&gt;
+&lt;th&gt;automergeWASM&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Version&lt;/td&gt;
+&lt;td&gt;N=1000&lt;/td&gt;
+&lt;td&gt;N=10000&lt;/td&gt;
+&lt;td&gt;N=1000&lt;/td&gt;
+&lt;td&gt;N=10000&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;[B1.3] Prepend N characters (time)&lt;/td&gt;
+&lt;td&gt;2080 ms&lt;/td&gt;
+&lt;td&gt;270069 ms&lt;/td&gt;
+&lt;td&gt;175 ms&lt;/td&gt;
+&lt;td&gt;3624 ms&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;[B1.5] Insert N words at random positions (time)&lt;/td&gt;
+&lt;td&gt;1619 ms&lt;/td&gt;
+&lt;td&gt;46180 ms&lt;/td&gt;
+&lt;td&gt;404 ms&lt;/td&gt;
+&lt;td&gt;26491 ms&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;[B1.10]  Prepend N numbers (time)&lt;/td&gt;
+&lt;td&gt;2136 ms&lt;/td&gt;
+&lt;td&gt;273761 ms&lt;/td&gt;
+&lt;td&gt;209 ms&lt;/td&gt;
+&lt;td&gt;4664 ms&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+&lt;/figure&gt;
+
+
+</content>
+    </item>
     
     <item>
       <title>Towards Production: Getting in Shape</title>
@@ -95,134 +223,6 @@ While we hit the goals of being a correct CRDT that was easy to use, there were 
 &lt;p&gt;I tried disabling the versioning code (which would produce wrong results when the front-end back-end get out of sync) to understand what the performance cost was and saw speedups between 15% and 30% from that alone.  This is no small matter when all I need is a total gain of 50%.  The solution is to have the frontend produce fully formed changes, complete with &lt;code&gt;pred&lt;/code&gt; and elementId&amp;rsquo;s.&lt;/p&gt;
 &lt;p&gt;That change has been the subject of the &lt;a href=&#34;https://github.com/automerge/automerge/pull/291&#34;&gt;current pull request&lt;/a&gt; I have open with Automerge that I hope to have merged soon.  This would be the first time my rust work would result in a significant change to the Automerge API as up until now I&amp;rsquo;ve been trying to work entirely within the constraints laid out by Martin&amp;rsquo;s design.  With any luck this will be accepted into Automerge/performance and I&amp;rsquo;ll be back with better benchmarks next week.&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://github.com/orionz/&#34;&gt;Orion Henry&lt;/a&gt;&lt;/p&gt;
-</content>
-    </item>
-    
-    <item>
-      <title>LocalChange Results, Alex Rejoins, Next Steps</title>
-      <link>http://inkandswitch.github.io/automerge-rs/post/localchange-results/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://inkandswitch.github.io/automerge-rs/post/localchange-results/</guid>
-      <description>Progress report The LocalChange branch has been merged In our last update we described a performance optimization we wanted to make which we suspected would improve our performance by shiftng responsibility for tracking changes from the backend of the library to the frontend. We&amp;rsquo;re pleased to report that the localChange branch has been merged and is showing good results on the benchmarking front.
-    automerge1  automerge1  automergeWASM automergeWASM     Version 09-08-2020 01-07-2021 09-08-2020 01-07-2021   [B1.</description>
-      <content>&lt;h2 id=&#34;progress-report&#34;&gt;Progress report&lt;/h2&gt;
-&lt;h3 id=&#34;the-localchange-branch-has-been-merged&#34;&gt;The LocalChange branch has been merged&lt;/h3&gt;
-&lt;p&gt;In our &lt;a href=&#34;https://inkandswitch.github.io/automerge-rs/post/towards-production/&#34;&gt;last update&lt;/a&gt; we described a performance optimization we wanted to make which we suspected would improve our performance by shiftng responsibility for tracking changes from the backend of the library to the frontend. We&amp;rsquo;re pleased to report that the &lt;code&gt;localChange&lt;/code&gt; branch has been merged and is showing good results on the benchmarking front.&lt;/p&gt;
-
-
-&lt;figure&gt;
-
-
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th&gt;automerge1  &lt;/th&gt;
-&lt;th&gt;automerge1 &lt;/th&gt;
-&lt;th&gt;automergeWASM&lt;/th&gt;
-&lt;th&gt;automergeWASM&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;Version&lt;/td&gt;
-&lt;td&gt;09-08-2020&lt;/td&gt;
-&lt;td&gt;01-07-2021&lt;/td&gt;
-&lt;td&gt;09-08-2020&lt;/td&gt;
-&lt;td&gt;01-07-2021&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;[B1.2] Insert string of length N (time)&lt;/td&gt;
-&lt;td&gt;441 ms&lt;/td&gt;
-&lt;td&gt;288 ms&lt;/td&gt;
-&lt;td&gt;35 ms&lt;/td&gt;
-&lt;td&gt;22 ms&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;[B1.4] Insert N characters at random positions (time)&lt;/td&gt;
-&lt;td&gt;947 ms&lt;/td&gt;
-&lt;td&gt;164 ms&lt;/td&gt;
-&lt;td&gt;224 ms&lt;/td&gt;
-&lt;td&gt;164 ms&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;[B3.1] 20√N clients concurrently set number in Map (time)&lt;/td&gt;
-&lt;td&gt;516 ms&lt;/td&gt;
-&lt;td&gt;492 ms&lt;/td&gt;
-&lt;td&gt;8 ms&lt;/td&gt;
-&lt;td&gt;8 ms&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-
-
-&lt;/figure&gt;
-
-
-&lt;p&gt;These show significant improvements on test &lt;code&gt;B1.2&lt;/code&gt; and &lt;code&gt;B1.4&lt;/code&gt; as both of these tests hammer the  &lt;code&gt;applyLocalChange&lt;/code&gt; path and no change was expected on &lt;code&gt;B3.1&lt;/code&gt; as it relies only on &lt;code&gt;applyChanges&lt;/code&gt; and does no local change transform.&lt;/p&gt;
-&lt;p&gt;Also the hard work by Martin Kleppmann can be seen in the greatly improved numbers in automerge1 over this timeframe.&lt;/p&gt;
-&lt;h3 id=&#34;alex-good-is-back-on-the-project&#34;&gt;Alex Good is back on the project&lt;/h3&gt;
-&lt;p&gt;Alex Good is back on the team working full time on the push to get &lt;code&gt;automerge-rs&lt;/code&gt; to a 1.0 release.  He has already cleaned up the tests, reorganized the code across the &lt;code&gt;automerge-protocol&lt;/code&gt; package and merged a huge rewrite of the &lt;code&gt;automerge-frontend&lt;/code&gt; crate.&lt;/p&gt;
-&lt;h3 id=&#34;blockers-for-a-10-release&#34;&gt;Blockers for a 1.0 release&lt;/h3&gt;
-&lt;p&gt;Currently there are two projects that stand as hard blockers for a release of &lt;code&gt;automerge-wasm&lt;/code&gt; simultaneous automerge 1.0.&lt;/p&gt;
-&lt;p&gt;First the whole document compression mode is not yet implemented in rust.  This method takes a stack of changes, does the column compression algorithm on the changes itself, and then merges the ops across all changes and compresses them as well.  All the tests currently pass without this feature but if a document were saved in the js version currently it could not be loaded in the wasm version.&lt;/p&gt;
-&lt;p&gt;Second &lt;code&gt;automerge-wasm&lt;/code&gt; needs to be packaged properly.  Currently there is no official packaging, and users need to compile the wasm manually to make use of it.&lt;/p&gt;
-&lt;h3 id=&#34;next-steps-in-performance-work&#34;&gt;Next steps in performance work&lt;/h3&gt;
-&lt;p&gt;One issue that needs to be addressed is that the &lt;code&gt;wasm-pack&lt;/code&gt; binary throws out function names when doing a profile build.  This is a &lt;a href=&#34;https://github.com/rustwasm/wasm-pack/issues/797&#34;&gt;known issue&lt;/a&gt; but the workarounds have not worked for us yet.  Without this we have to base our profiling on debug builds which will sometimes cause us to focus on tuning up code that the compile already knows how to optimize but isn&amp;rsquo;t.  But even with this lack of visibility in profiling it&amp;rsquo;s starting to look like the js/wasm call interface is starting to be the problem.  Currently JS objects like the &lt;code&gt;UncompressedChange&lt;/code&gt; and the &lt;code&gt;Patch&lt;/code&gt; object get converted into a json string and then parsed as the intermediary on both the call and return value for each function call.  Interestingly binary changes do not do this as they are &amp;hellip; well &amp;hellip; just binary.  The only cost is copying them directly between js memory and wasm memory.  This is part of the reason why test &lt;code&gt;B3.1&lt;/code&gt; is so very fast.   Alternate ways to pass data back and forth between the layers is being looked into.&lt;/p&gt;
-&lt;p&gt;In furtherance of this, Alex is currently duplicating the benchmark suite in pure rust so we can get a better idea of how much of the problem is the js/wasm interface.&lt;/p&gt;
-&lt;p&gt;Most of the tests when run with 10x the data take about 10x the time.  There are 3 tests showing much worse numbers than they should at larger sizes.  These need to be looked into and remedied, hopefully being easy wins for performance.&lt;/p&gt;
-
-
-&lt;figure&gt;
-
-
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th&gt;automerge1&lt;/th&gt;
-&lt;th&gt;automerge1&lt;/th&gt;
-&lt;th&gt;automergeWASM&lt;/th&gt;
-&lt;th&gt;automergeWASM&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;Version&lt;/td&gt;
-&lt;td&gt;N=1000&lt;/td&gt;
-&lt;td&gt;N=10000&lt;/td&gt;
-&lt;td&gt;N=1000&lt;/td&gt;
-&lt;td&gt;N=10000&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;[B1.3] Prepend N characters (time)&lt;/td&gt;
-&lt;td&gt;2080 ms&lt;/td&gt;
-&lt;td&gt;270069 ms&lt;/td&gt;
-&lt;td&gt;175 ms&lt;/td&gt;
-&lt;td&gt;3624 ms&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;[B1.5] Insert N words at random positions (time)&lt;/td&gt;
-&lt;td&gt;1619 ms&lt;/td&gt;
-&lt;td&gt;46180 ms&lt;/td&gt;
-&lt;td&gt;404 ms&lt;/td&gt;
-&lt;td&gt;26491 ms&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;[B1.10]  Prepend N numbers (time)&lt;/td&gt;
-&lt;td&gt;2136 ms&lt;/td&gt;
-&lt;td&gt;273761 ms&lt;/td&gt;
-&lt;td&gt;209 ms&lt;/td&gt;
-&lt;td&gt;4664 ms&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-
-
-&lt;/figure&gt;
-
-
 </content>
     </item>
     

@@ -213,7 +213,7 @@ h4 {
   margin: 2rem 0 1rem 0;
 }
 
-h1+h2, h2+h3 {
+h1+h2, h2+h3, h1+h3 {
   margin: -.5rem 0 1rem 0;
 }
 

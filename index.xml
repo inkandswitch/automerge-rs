@@ -6,10 +6,45 @@
     <description>Recent content in Automerge-RS on Automerge-RS Development</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 19 Jan 2021 09:55:33 -0800</lastBuildDate>
+    <lastBuildDate>Fri, 29 Jan 2021 17:00:00 +0000</lastBuildDate>
     
 	<atom:link href="http://inkandswitch.github.io/automerge-rs/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>A TodoMVC interop demo, Document Compression</title>
+      <link>http://inkandswitch.github.io/automerge-rs/post/interop-demo/</link>
+      <pubDate>Fri, 29 Jan 2021 17:00:00 +0000</pubDate>
+      
+      <guid>http://inkandswitch.github.io/automerge-rs/post/interop-demo/</guid>
+      <description>Automerge 1.0 Demo One promise of local-first applications is easier interoperability of tools on shared data. Today, it is common for client applications to fetch data from an authoritative source hosted as a REST API. This is convenient, but this centralized approach only works when the REST API is available. We will demonstrate an alternative approach similar to how git works, with many independent locally stored copies of the data combined using Automerge.</description>
+      <content>&lt;h2 id=&#34;automerge-10-demo&#34;&gt;Automerge 1.0 Demo&lt;/h2&gt;
+&lt;p&gt;One promise of local-first applications is easier interoperability of tools on shared data. Today, it is common for client applications to fetch data from an authoritative source hosted as a REST API. This is convenient, but this centralized approach only works when the REST API is available. We will demonstrate an alternative approach similar to how &lt;code&gt;git&lt;/code&gt; works, with many independent locally stored copies of the data combined using Automerge. Each user has the full history for their documents and can merge changes from any other user.&lt;/p&gt;
+&lt;p&gt;Although many past Ink &amp;amp; Switch prototypes have used peer-to-peer networking for data distribution in this demo we&amp;rsquo;re trying something different here. In this prototype, we show an alternate &lt;em&gt;file-based&lt;/em&gt; approach inspired by the upcoming Automerge 1.0 binary file format. Automerge 1.0 is built around a compact binary representation of a full document&amp;rsquo;s history, well-suited to distributing as a file. An application could distribute these files in almost any way, such as via DropBox or Google Drive, but we have included a trivial Python file-server in the project repository.&lt;/p&gt;
+&lt;p&gt;This prototype can be found at &lt;a href=&#34;https://github.com/inkandswitch/automerge-todomvc-http&#34;&gt;https://github.com/inkandswitch/automerge-todomvc-http&lt;/a&gt;, including instructions on how to get it up and running.&lt;/p&gt;
+&lt;h3 id=&#34;multiplayer-todomvc-in-react&#34;&gt;Multiplayer TodoMVC in React&lt;/h3&gt;
+&lt;p&gt;Our prototype looks like any old TodoMVC example app, except there&amp;rsquo;s this sidebar with a list of &amp;ldquo;remotes&amp;rdquo;. What&amp;rsquo;s going on with that? If you input a URL in the text box at the top of the sidebar and hit return then the URL will be available to push and pull content from. Here&amp;rsquo;s an example showing two windows sharing data:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;./images/react-multibrowser.gif&#34; alt=&#34;A gif showing two browser windows with the todo list application open in it. The user adds a remote for each browser to the side bar, then makes edits in each window and shows the edits being synchronised between the two windows&#34;&gt;&lt;/p&gt;
+&lt;p&gt;An important point here is that in this example the two browser windows never push to the same file. Each browser window represents a different user who publishes their own files and invites other users to pull their changes in if they want them.&lt;/p&gt;
+&lt;h3 id=&#34;command-line&#34;&gt;Command line&lt;/h3&gt;
+&lt;p&gt;This is all well and good, but what if you want to automate something here. Maybe you want to run a script which automatically removes tasks if they&amp;rsquo;ve been marked as complete or something. Well that sounds like a task for a shell script, and to do that we&amp;rsquo;ll need a command line client. Happily one of the fruits of implementing Automerge in Rust is a native command line client:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;./images/browser-to-cli.png&#34; alt=&#34;A gif showing a browser window with a todo list in it and a terminal window. The operator types &amp;lsquo;curl localhost:5000/browser1 | automerge export&amp;rsquo; into the terminal and JSON represting the todo list is printed to the terminal&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;automerge&lt;/code&gt; is a CLI for automerge data. Here we see the &lt;code&gt;export&lt;/code&gt; commmand which takes automerge data from a file or standard input and outputs the JSON version of it. One of the neat properties of the automerge format is that the concatenation of two automerge files is an automerge file:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;./images/multibrowser-to-cli.gif&#34; alt=&#34;A gif showing two browser windows with a todo list in each. The user makes different changes in each one and pushes the changes to two different remotes. Then a terminal window appears and the user fetches the changes from each remote, pipes them through cat and from there through automerge export to show the merged changes&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Well this is great for reading, but we can make changes as well.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;./images/cli-to-browser.gif&#34; alt=&#34;A gif showing a browser window with a todo list in it, and a terminal window. The operator uses the terminal window to merge the files from the two browser windows and add a new todo list item before pushing to a new peer. The operator then pulls from the new peer in the first browser window to show the merged todo list&#34;&gt;&lt;/p&gt;
+&lt;p&gt;(Note that the syntax for the change command is a first prototype, not a designed solution.)&lt;/p&gt;
+&lt;h3 id=&#34;native-gui-applications&#34;&gt;Native GUI Applications&lt;/h3&gt;
+&lt;p&gt;Command lines are all very well, but one of the reasons to build a Rust library for automerge is so that we can build fast, native applications which integrate with the OS well. Here&amp;rsquo;s the same data loaded in a lightweight GTK application (no Electrons here):&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;./images/gui-to-browser.gif&#34; alt=&#34;A gif showing a browser window with a todo list and list of peers, and a GTK GUI application with a todo list and a list of peers. The operator creates and modifies todo lists in each application and pushes and pulls changes between them&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;full-document-compression-feature-complete&#34;&gt;Full Document Compression, Feature Complete!&lt;/h2&gt;
+&lt;p&gt;As we described above, the new Automerge 1.0 release is built around a new compact data representation. The previous version of Automerge didn&amp;rsquo;t describe a data format, and so most folks stored Automerge changes as large JSON blobs. A single character inserted into an Automerge Text field and stored as a plain-text JSON object could be as large as 300 bytes.&lt;/p&gt;
+&lt;p&gt;Automerge 1.0 is designed around an RLE (run length encoded) compressed format that reduces repeated metadata without loss of history fidelity or custom formats for particular data formats. (More details on this in the future.) The result is that for real-world edits a large collaborative document can have as little as about 1.2 bytes of overhead per character, or about a 200x improvement.&lt;/p&gt;
+&lt;p&gt;This has been implemented in the Javascript implementation for a while, but full document compression just landed on the Rust side too, so now &lt;code&gt;automerge-wasm&lt;/code&gt; is now at full feature parity with the javascript implementation!&lt;/p&gt;
+&lt;p&gt;The next project for &lt;code&gt;automerge-wasm&lt;/code&gt; is going to be official npm packaging, which should allow users to switch between &lt;code&gt;automerge&lt;/code&gt; and &lt;code&gt;automerge-wasm&lt;/code&gt; as easily as renaming the package. Beyond that, we intend to continue our work on the performance and benchmarking front.&lt;/p&gt;
+&lt;p&gt;That&amp;rsquo;s all for this update. A full release of Automerge 1.0 is getting closer, and we&amp;rsquo;re eager to help Martin get it over the finish line. See you in a couple of weeks!&lt;/p&gt;
+</content>
+    </item>
     
     <item>
       <title>LocalChange Results, Alex Rejoins</title>

@@ -3,17 +3,22 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>http://inkandswitch.github.io/automerge-rs/</loc>
-    <lastmod>2021-01-19T09:55:33-08:00</lastmod>
+    <loc>http://inkandswitch.github.io/automerge-rs/post/interop-demo/</loc>
+    <lastmod>2021-01-29T17:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://inkandswitch.github.io/automerge-rs/post/localchange-results/</loc>
-    <lastmod>2021-01-19T09:55:33-08:00</lastmod>
+    <loc>http://inkandswitch.github.io/automerge-rs/</loc>
+    <lastmod>2021-01-29T17:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>http://inkandswitch.github.io/automerge-rs/post/</loc>
+    <lastmod>2021-01-29T17:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://inkandswitch.github.io/automerge-rs/post/localchange-results/</loc>
     <lastmod>2021-01-19T09:55:33-08:00</lastmod>
   </url>
   

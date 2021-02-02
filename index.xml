@@ -41,8 +41,48 @@
 &lt;p&gt;As we described above, the new Automerge 1.0 release is built around a new compact data representation. The previous version of Automerge didn&amp;rsquo;t describe a data format, and so most folks stored Automerge changes as large JSON blobs. A single character inserted into an Automerge Text field and stored as a plain-text JSON object could be as large as 300 bytes.&lt;/p&gt;
 &lt;p&gt;Automerge 1.0 is designed around an RLE (run length encoded) compressed format that reduces repeated metadata without loss of history fidelity or custom formats for particular data formats. (More details on this in the future.) The result is that for real-world edits a large collaborative document can have as little as about 1.2 bytes of overhead per character, or about a 200x improvement.&lt;/p&gt;
 &lt;p&gt;This has been implemented in the Javascript implementation for a while, but full document compression just landed on the Rust side too, so now &lt;code&gt;automerge-wasm&lt;/code&gt; is now at full feature parity with the javascript implementation!&lt;/p&gt;
+&lt;p&gt;Tests &lt;code&gt;B1.1&lt;/code&gt; and &lt;code&gt;B1.2&lt;/code&gt; represent the worst and best cases for these compression schemes: N ops with 1 op per change and N ops in 1 big change respectively.  The numbers below are from before the patch and show just how much of a difference this compression can make, especially when you realize that zero overhead would be 10,000 bytes.&lt;/p&gt;
+
+
+&lt;figure&gt;
+
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;N=10,000&lt;/th&gt;
+&lt;th&gt;automerge0&lt;/th&gt;
+&lt;th&gt;automergeWASM&lt;/th&gt;
+&lt;th&gt;automerge1&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Compression&lt;/td&gt;
+&lt;td&gt;None&lt;/td&gt;
+&lt;td&gt;Change&lt;/td&gt;
+&lt;td&gt;Document&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;[B1.1] Append N characters (time)&lt;/td&gt;
+&lt;td&gt;3,605,855 bytes&lt;/td&gt;
+&lt;td&gt;1,081,551 bytes&lt;/td&gt;
+&lt;td&gt;10,264 bytes&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;[B1.2] Insert string of length N (time)&lt;/td&gt;
+&lt;td&gt;2,617,053 bytes&lt;/td&gt;
+&lt;td&gt;10,187 bytes&lt;/td&gt;
+&lt;td&gt;10,193 bytes&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+&lt;/figure&gt;
+
+
 &lt;p&gt;The next project for &lt;code&gt;automerge-wasm&lt;/code&gt; is going to be official npm packaging, which should allow users to switch between &lt;code&gt;automerge&lt;/code&gt; and &lt;code&gt;automerge-wasm&lt;/code&gt; as easily as renaming the package. Beyond that, we intend to continue our work on the performance and benchmarking front.&lt;/p&gt;
-&lt;p&gt;That&amp;rsquo;s all for this update. A full release of Automerge 1.0 is getting closer, and we&amp;rsquo;re eager to help Martin get it over the finish line. See you in a couple of weeks!&lt;/p&gt;
 </content>
     </item>
     
